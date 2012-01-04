@@ -7,17 +7,19 @@ namespace Btl.Model
 {
     class TimerModel
     {
+        #region Members
         /// <summary>
         /// The underlying timer
         /// </summary>
         readonly DispatcherTimer timer = new DispatcherTimer();
+        #endregion
 
         #region Constructors
         /// <summary>
         /// Construct a timer with a default duration of 25 minutes.  This is a 
         /// 'pomodoro' time span.
         /// </summary>
-        public TimerModel() : this(new TimeSpan(0, 25, 0))
+        public TimerModel() : this(new TimeSpan(0, 0, 10))
         {
         }
 

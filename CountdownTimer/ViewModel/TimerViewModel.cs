@@ -6,6 +6,7 @@ using System.Linq;
 using System.Media;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shell;
 
 
 namespace Btl.ViewModel
@@ -14,7 +15,7 @@ namespace Btl.ViewModel
     {
         #region Members
         private Color statusColor;
-        readonly TimerModel timer = new TimerModel(new TimeSpan(0, 0, 10));
+        readonly TimerModel timer = new TimerModel();
         #endregion
 
         #region Constructors
@@ -81,6 +82,7 @@ namespace Btl.ViewModel
 
         #region Properties
         string timerValue;
+
         /// <summary>
         /// The value of the timer as a string.
         /// </summary>
@@ -156,6 +158,20 @@ namespace Btl.ViewModel
             }
         }
 
+        private TaskbarItemInfo taskbarItemInfo = null;
+        public TaskbarItemInfo TaskbarItemInfo
+        {
+            get
+            {
+                return taskbarItemInfo;
+            }
+            set
+            {
+                if (taskbarItemInfo == value)
+                    return;
+                taskbarItemInfo = value;
+            }
+        }
         #endregion
 
         #region Methods
@@ -168,6 +184,7 @@ namespace Btl.ViewModel
             UpdateTimerValues(t);
 
             UpdateTimerStatusColor(e);
+
         }
 
         /// <summary>
@@ -218,11 +235,24 @@ namespace Btl.ViewModel
             UpdateTimer(timer.Remaining, e);
 
             SystemSounds.Exclamation.Play();
+
+
+            if (taskbarItemInfo != null)
+            {
+                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
+                taskbarItemInfo.ProgressValue = 1.0;
+            }
         }
 
         private void OnTick(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(timer.Remaining, e);
+
+            if (taskbarItemInfo != null)
+            {
+                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
+                taskbarItemInfo.ProgressValue = PercentElapsed / 100.0;
+            }
         }
 
         void OnStarted(object sender, TimerModelEventArgs e)
@@ -230,16 +260,32 @@ namespace Btl.ViewModel
             UpdateTimer(timer.Remaining, e);
 
             SystemSounds.Beep.Play();
+
+            if (taskbarItemInfo != null)
+            {
+                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
+            }
         }
 
         private void OnStopped(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(timer.Remaining, e);
+
+            if (taskbarItemInfo != null)
+            {
+                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Paused;
+            }
         }
 
         private void OnReset(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(timer.Remaining, e);
+
+            if (taskbarItemInfo != null)
+            {
+                taskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
+                taskbarItemInfo.ProgressValue = 0.0;
+            }
         }
         #endregion
 

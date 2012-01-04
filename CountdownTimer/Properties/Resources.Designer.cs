@@ -59,5 +59,12 @@ namespace Btl.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Icon CountdownTimer {
+            get {
+                object obj = ResourceManager.GetObject("CountdownTimer", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

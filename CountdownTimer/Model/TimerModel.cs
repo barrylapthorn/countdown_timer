@@ -5,7 +5,7 @@ using System.Windows.Threading;
 
 namespace Btl.Model
 {
-    class TimerModel
+    internal class TimerModel
     {
         #region Members
         /// <summary>
@@ -19,7 +19,7 @@ namespace Btl.Model
         /// Construct a timer with a default duration of 25 minutes.  This is a 
         /// 'pomodoro' time span.
         /// </summary>
-        public TimerModel() : this(new TimeSpan(0, 0, 10))
+        public TimerModel() : this(new TimeSpan(0, 25, 0))
         {
         }
 
@@ -40,10 +40,19 @@ namespace Btl.Model
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Return the timer interval that we're using.
+        /// </summary>
         public TimeSpan Interval { get { return timer.Interval; } }
 
+        /// <summary>
+        /// Return the time remaining.
+        /// </summary>
         public TimeSpan Remaining { get; private set; }
 
+        /// <summary>
+        /// Has the time completed?
+        /// </summary>
         public bool Complete
         {
             get
@@ -53,6 +62,10 @@ namespace Btl.Model
         }
 
         private TimeSpan duration;
+
+        /// <summary>
+        /// Set or get the duration.
+        /// </summary>
         public TimeSpan Duration
         {
             get
@@ -71,18 +84,28 @@ namespace Btl.Model
         #endregion
 
         #region Methods
+        
+        /// <summary>
+        /// Start the countdown.
+        /// </summary>
         public void Start()
         {
             timer.Start();
             OnStarted();
         }
 
+        /// <summary>
+        /// Stop the countdown.
+        /// </summary>
         public void Stop()
         {
             timer.Stop();
             OnStopped();
         }
 
+        /// <summary>
+        /// Stop the current countdown and reset.
+        /// </summary>
         public void Reset()
         {
             Stop();
@@ -91,6 +114,9 @@ namespace Btl.Model
         }
 
         #region Event Handlers
+        /// <summary>
+        /// Handle the ticking of the system timer.
+        /// </summary>
         private void OnDispatcherTimerTick()
         {
             Remaining = Remaining - Interval;

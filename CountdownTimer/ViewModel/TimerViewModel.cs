@@ -19,6 +19,10 @@ namespace Btl.ViewModel
         #endregion
 
         #region Constructors
+        
+        /// <summary>
+        /// Construct a new timer view model.
+        /// </summary>
         public TimerViewModel()
         {
             //  add event handlers
@@ -159,6 +163,12 @@ namespace Btl.ViewModel
         }
 
         private TaskbarItemInfo taskbarItemInfo = null;
+
+        /// <summary>
+        /// Get or set a reference to the TaskbarItemInfo of the application
+        /// so that the view model can update the progress bar in the taskbar
+        /// application icon.
+        /// </summary>
         public TaskbarItemInfo TaskbarItemInfo
         {
             get
@@ -182,9 +192,7 @@ namespace Btl.ViewModel
         private void UpdateTimer(TimeSpan t, TimerModelEventArgs e)
         {
             UpdateTimerValues(t);
-
             UpdateTimerStatusColor(e);
-
         }
 
         /// <summary>

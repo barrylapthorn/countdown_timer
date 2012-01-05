@@ -1,4 +1,4 @@
-﻿// Copyright 2012 lapthorn.net.
+// Copyright 2012 lapthorn.net.
 //
 // This software is provided "as is" without a warranty of any kind. All
 // express or implied conditions, representations and warranties, including
@@ -12,19 +12,4 @@
 // software, even if lapthorn.net has been advised of the possibility of
 // such damages.
 //
-// You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-
-namespace Btl
-{
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
-    {
-    }
-}
+// You are free to fork this via github.

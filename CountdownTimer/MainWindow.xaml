@@ -7,6 +7,7 @@
         Title="Countdown Timer"
         d:DesignHeight="350"
         d:DesignWidth="525"
+        ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         Topmost="True"
         mc:Ignorable="d">

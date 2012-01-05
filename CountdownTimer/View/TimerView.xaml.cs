@@ -14,13 +14,11 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using Btl.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shell;
 
 namespace Btl.View
 {

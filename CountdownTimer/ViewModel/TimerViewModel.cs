@@ -48,6 +48,8 @@ namespace Btl.ViewModel
             timer.Started += (sender, e) => OnStarted(sender, e);
             timer.Stopped += (sender, e) => OnStopped(sender, e);
             timer.TimerReset += (sender, e) => OnReset(sender, e);
+
+            UpdateTimerValues(timer.Duration);
         }
         #endregion
 
@@ -61,7 +63,7 @@ namespace Btl.ViewModel
 
         bool CanStartTimerExecute()
         {
-            return !timer.Complete;
+            return !timer.Complete && timer.Status != TimerModel.State.Running  ;
         }
 
         public ICommand StartTimer { get { return new RelayCommand(StartTimerExecute, CanStartTimerExecute); } }
@@ -77,7 +79,7 @@ namespace Btl.ViewModel
 
         bool CanStopTimerExecute()
         {
-            return !timer.Complete;
+            return !timer.Complete && timer.Status == TimerModel.State.Running;
         }
 
         public ICommand StopTimer { get { return new RelayCommand(StopTimerExecute, CanStopTimerExecute); } }

@@ -6,7 +6,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d" Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
     <UserControl.DataContext>
         <btl:TimerViewModel x:Name="viewModel" />
     </UserControl.DataContext>
@@ -29,20 +30,18 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Name="label1"
-               Background="{Binding ElementName=viewModel,
-                                    Path=StatusBrush}"
-               Content="Remaining:" />
         <Label Name="TimerLabel"
-               Grid.Column="1"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               HorizontalContentAlignment="Center"
                Content="{Binding ElementName=viewModel,
-                                 Path=TimerValue}" />
+                                 Path=TimerValue}" FontSize="16" />
         <Button Name="StopButton"
                 Grid.Row="1"
                 Grid.Column="1"
                 Command="{Binding ElementName=viewModel,
                                   Path=StopTimer}"
-                Content="Stop" />
+                Content="Pause" />
         <Button Name="StartButton"
                 Grid.Row="1"
                 Command="{Binding ElementName=viewModel,

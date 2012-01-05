@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="Btl.Control.TimeSpanControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <Grid x:Name="LayoutRoot"
+          Width="Auto"
+          Height="Auto">
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="0.2*" />
+
+            <ColumnDefinition Width="0.05*" />
+
+            <ColumnDefinition Width="0.2*" />
+
+            <ColumnDefinition Width="0.05*" />
+
+            <ColumnDefinition Width="0.2*" />
+
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="hour"
+              Focusable="True"
+              KeyDown="Down">
+
+            <TextBlock x:Name="mmTxt"
+                       VerticalAlignment="Center"
+                       FontFamily="Goudy Stout"
+                       FontSize="14"
+                       Text="{Binding Path=Hours,
+                                      ElementName=UserControl,
+                                      Mode=Default}"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+
+            <TextBlock x:Name="sep1"
+                       VerticalAlignment="Center"
+                       Background="{x:Null}"
+                       FontFamily="Goudy Stout"
+                       FontSize="14"
+                       Text=":"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+
+        </Grid>
+
+        <Grid x:Name="min"
+              Grid.Column="2"
+              Focusable="True"
+              KeyDown="Down">
+
+            <TextBlock x:Name="ddTxt"
+                       VerticalAlignment="Center"
+                       FontFamily="Goudy Stout"
+                       FontSize="14"
+                       Text="{Binding Path=Minutes,
+                                      ElementName=UserControl,
+                                      Mode=Default}"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+
+        </Grid>
+
+        <Grid Grid.Column="3">
+
+            <TextBlock x:Name="sep2"
+                       VerticalAlignment="Center"
+                       Background="{x:Null}"
+                       FontFamily="Goudy Stout"
+                       FontSize="14"
+                       Text=":"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+
+        </Grid>
+
+        <Grid Name="sec"
+              Grid.Column="4"
+              Focusable="True"
+              KeyDown="Down">
+
+            <TextBlock x:Name="yyTxt"
+                       VerticalAlignment="Center"
+                       FontFamily="Goudy Stout"
+                       FontSize="14"
+                       Text="{Binding Path=Seconds,
+                                      ElementName=UserControl,
+                                      Mode=Default}"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap" />
+
+        </Grid>
+
+
+
+    </Grid>
+</UserControl>

@@ -28,6 +28,13 @@ namespace Btl.Model
         /// The underlying timer
         /// </summary>
         readonly DispatcherTimer timer = new DispatcherTimer();
+
+        public enum State
+        {
+            Running,
+            Paused,
+            Complete
+        }
         #endregion
 
         #region Constructors
@@ -97,6 +104,8 @@ namespace Btl.Model
                 }
             }
         }
+
+        public State Status { get; set; }
         #endregion
 
         #region Methods
@@ -162,6 +171,8 @@ namespace Btl.Model
         /// </summary>
         private void OnReset()
         {
+            Status = State.Paused;
+
             if (TimerReset != null)
             {
                 TimerReset(this, new TimerModelEventArgs(Duration, Remaining, TimerModelEventArgs.Status.Reset));
@@ -175,6 +186,8 @@ namespace Btl.Model
         /// </summary>
         private void OnCompleted()
         {
+            Status = State.Complete;
+
             if (Completed != null)
             {
                 Completed(this, new TimerModelEventArgs(Duration, Remaining, TimerModelEventArgs.Status.Completed));
@@ -188,6 +201,8 @@ namespace Btl.Model
         /// </summary>
         private void OnStopped()
         {
+            Status = State.Paused;
+
             if (Stopped != null)
             {
                 Stopped(this, new TimerModelEventArgs(Duration, Remaining, TimerModelEventArgs.Status.Stopped));
@@ -201,6 +216,8 @@ namespace Btl.Model
         /// </summary>
         private void OnStarted()
         {
+            Status = State.Running;
+
             if (Started != null)
             {
                 Started(this, new TimerModelEventArgs(Duration, Remaining, TimerModelEventArgs.Status.Started));
@@ -214,6 +231,8 @@ namespace Btl.Model
         /// </summary>
         private void OnTick()
         {
+            Status = State.Running;
+
             if (Tick != null)
             {
                 Tick(this, new TimerModelEventArgs(Duration, Remaining, TimerModelEventArgs.Status.Running));

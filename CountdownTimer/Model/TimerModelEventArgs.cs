@@ -20,7 +20,7 @@ using System.Linq;
 
 namespace Btl.Model
 {
-    public class TimerModelEventArgs : System.EventArgs
+    public class TimerModelEventArgs : EventArgs
     {
         public enum Status
         {

@@ -41,11 +41,19 @@ namespace Btl
 
         }
 
+        /// <summary>
+        /// Window closing event.  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveWindowPosition();
         }
 
+        /// <summary>
+        /// Save the window position into the application settings.
+        /// </summary>
         private void SaveWindowPosition()
         {
             Properties.Settings.Default.Top = this.Top;
@@ -56,14 +64,35 @@ namespace Btl
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Load the window position from the application settings.
+        /// </summary>
         private void LoadWindowPosition()
         {
+            UpgradeSettings();
+
             if (Properties.Settings.Default.Width > 0)
             {
                 this.Top = Properties.Settings.Default.Top;
                 this.Left = Properties.Settings.Default.Left;
                 this.Height = Properties.Settings.Default.Height;
                 this.Width = Properties.Settings.Default.Width;
+            }
+        }
+
+        /// <summary>
+        /// After defining 'UpgradeRequired' in our settings.settings and default
+        /// it to 'true', we check here to see if we need to import settings from
+        /// a previous application/assembly version.  In other words, a newer
+        /// assembly has 'UpgradeRequired=True' and triggers the upgrade.
+        /// </summary>
+        private static void UpgradeSettings()
+        {
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
             }
         }
     }

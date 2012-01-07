@@ -32,17 +32,19 @@ namespace Btl.Control
         public TimeSpanControl()
         {
             InitializeComponent();
+            Value = TimeSpan.FromMinutes(25.0);
         }
         #endregion
 
         public TimeSpan Value
         {
-            get { return (TimeSpan)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (TimeSpan) GetValue(timeSpanValue); }
+            set { SetValue(timeSpanValue, value); }
         }
-        public static readonly DependencyProperty ValueProperty =
+
+        public static readonly DependencyProperty timeSpanValue =
         DependencyProperty.Register("Value", typeof(TimeSpan), typeof(TimeSpanControl),
-        new UIPropertyMetadata(DateTime.Now.TimeOfDay, new PropertyChangedCallback(OnValueChanged)));
+        new UIPropertyMetadata(DateTime.Now.TimeOfDay, OnValueChanged));
 
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
@@ -59,7 +61,7 @@ namespace Btl.Control
         }
         public static readonly DependencyProperty HoursProperty =
         DependencyProperty.Register("Hours", typeof(int), typeof(TimeSpanControl),
-        new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+        new UIPropertyMetadata(0, OnTimeChanged));
 
         public int Minutes
         {
@@ -68,7 +70,7 @@ namespace Btl.Control
         }
         public static readonly DependencyProperty MinutesProperty =
         DependencyProperty.Register("Minutes", typeof(int), typeof(TimeSpanControl),
-        new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+        new UIPropertyMetadata(0, OnTimeChanged));
 
         public int Seconds
         {
@@ -78,7 +80,7 @@ namespace Btl.Control
 
         public static readonly DependencyProperty SecondsProperty =
         DependencyProperty.Register("Seconds", typeof(int), typeof(TimeSpanControl),
-        new UIPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged)));
+        new UIPropertyMetadata(0, OnTimeChanged));
 
 
         private static void OnTimeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

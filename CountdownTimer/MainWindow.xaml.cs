@@ -30,8 +30,41 @@ namespace Btl
         {
             InitializeComponent();
 
-            SettingsWindow s = new SettingsWindow();
-            s.ShowDialog();
+            LoadWindowPosition();
+
+            //SettingsWindow s = new SettingsWindow();
+            //s.ShowDialog();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveWindowPosition();
+        }
+
+        private void SaveWindowPosition()
+        {
+            Properties.Settings.Default.Top = this.Top;
+            Properties.Settings.Default.Left = this.Left;
+            Properties.Settings.Default.Height = this.Height;
+            Properties.Settings.Default.Width = this.Width;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void LoadWindowPosition()
+        {
+            if (Properties.Settings.Default.Width > 0)
+            {
+                this.Top = Properties.Settings.Default.Top;
+                this.Left = Properties.Settings.Default.Left;
+                this.Height = Properties.Settings.Default.Height;
+                this.Width = Properties.Settings.Default.Width;
+            }
         }
     }
 }

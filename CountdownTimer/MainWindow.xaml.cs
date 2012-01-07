@@ -32,8 +32,8 @@ namespace Btl
 
             LoadWindowPosition();
 
-            //SettingsWindow s = new SettingsWindow();
-            //s.ShowDialog();
+            SettingsWindow s = new SettingsWindow();
+            s.ShowDialog();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

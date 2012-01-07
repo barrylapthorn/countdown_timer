@@ -1,0 +1,43 @@
+
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2>Choosing the underlying timer</h2>
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2>MVVM style</h2>
+
+
+<!-- ---------------------------------------------------------------------- -->
+<h2></h2>
+
+<!-- ---------------------------------------------------------------------- -->
+<h2>Persisting settings</h2>
+
+<p>To persist the application's settings, we take advantage of the class  <code>System.Configuration.ApplicationSettingsBase</code>.
+This is subclassed for the WPF application when you create it, so you can then just address the application settings as, for example:</p>
+
+<pre>
+                this.Top = Properties.Settings.Default.Top;
+                this.Left = Properties.Settings.Default.Left;
+                this.Height = Properties.Settings.Default.Height;
+                this.Width = Properties.Settings.Default.Width;
+</pre>
+
+
+
+<p>To cater for updates to the application we can use the following method:  define <code>UpgradeRequired</code> in our settings, and set to <code>True</code> by default.
+Then use:</p>
+
+<pre>
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+</pre>
+
+<p>To force the upgrade of the application settings <strong>only when the <code>UpgradeRequired</code> flag is true</strong>.  For newly versioned assemblies, all settings
+take their default values, this code is triggered, and the settings are copied from a previous application version to the new one.</p>

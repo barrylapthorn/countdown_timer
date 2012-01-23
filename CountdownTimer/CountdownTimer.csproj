@@ -59,18 +59,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\SettingsModel.cs" />
-    <Compile Include="Model\TimerModel.cs" />
-    <Compile Include="Model\TimerModelEventArgs.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\TimerModel.cs" />
+    <Compile Include="Models\TimerModelEventArgs.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\SettingsViewModel.cs" />
-    <Compile Include="ViewModel\TimerViewModel.cs" />
-    <Compile Include="View\SettingsView.xaml.cs">
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\TimerViewModel.cs" />
+    <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TimerView.xaml.cs">
+    <Compile Include="Views\TimerView.xaml.cs">
       <DependentUpon>TimerView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -89,11 +89,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SettingsView.xaml">
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TimerView.xaml">
+    <Page Include="Views\TimerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,7 +128,7 @@
       <Project>{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}</Project>
       <Name>Btl.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MicroMvvm\Btl.MicroMvvm.csproj">
+    <ProjectReference Include="..\Btl\MicroMvvm\Btl.MicroMvvm.csproj">
       <Project>{9EFE6CBD-DF21-436E-9F81-E258BAB0B653}</Project>
       <Name>Btl.MicroMvvm</Name>
     </ProjectReference>

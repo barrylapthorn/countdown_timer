@@ -16,7 +16,7 @@
 
 
 using Btl.Model;
-using MicroMvvm;
+using Btl.MicroMvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,6 +163,22 @@ namespace Btl.ViewModel
             }
         }
 
+        public TimeSpan Duration
+        {
+            get
+            {
+                return timer.Duration;
+            }
+
+            set
+            {
+                if (timer.Duration == value)
+                    return;
+                timer.Duration = value;
+                RaisePropertyChanged("Duration");
+            }
+        }
+
         Brush statusBrush = new SolidColorBrush();
         public Brush StatusBrush
         {
@@ -199,6 +215,36 @@ namespace Btl.ViewModel
                 if (taskbarItemInfo == value)
                     return;
                 taskbarItemInfo = value;
+            }
+        }
+
+        public string ClockFontFamily
+        {
+            get
+            {
+                return Properties.Settings.Default.ClockFontFamily;
+            }
+            set
+            {
+                if (Properties.Settings.Default.ClockFontFamily == value)
+                    return;
+                Properties.Settings.Default.ClockFontFamily = value;
+                RaisePropertyChanged("ClockFontFamily");
+            }
+        }
+
+        public double ClockFontSize
+        {
+            get
+            {
+                return Properties.Settings.Default.ClockFontSize;
+            }
+            set
+            {
+                if (Properties.Settings.Default.ClockFontSize == value)
+                    return;
+                Properties.Settings.Default.ClockFontSize = value;
+                RaisePropertyChanged("ClockFontSize");
             }
         }
         #endregion

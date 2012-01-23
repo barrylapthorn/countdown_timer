@@ -21,7 +21,7 @@ using System.Linq.Expressions;
 
 //Event Design: http://msdn.microsoft.com/en-us/library/ms229011.aspx
 
-namespace MicroMvvm
+namespace Btl.MicroMvvm
 {
     [Serializable]
     public abstract class ObservableObject : INotifyPropertyChanged

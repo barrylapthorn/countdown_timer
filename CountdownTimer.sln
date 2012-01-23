@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountdownTimer", "Countdown
 		{9EFE6CBD-DF21-436E-9F81-E258BAB0B653} = {9EFE6CBD-DF21-436E-9F81-E258BAB0B653}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroMvvm", "MicroMvvm\MicroMvvm.csproj", "{9EFE6CBD-DF21-436E-9F81-E258BAB0B653}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Btl.MicroMvvm", "MicroMvvm\Btl.MicroMvvm.csproj", "{9EFE6CBD-DF21-436E-9F81-E258BAB0B653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSpanControl", "TimeSpanControl\TimeSpanControl.csproj", "{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Btl.Controls", "Btl\Controls\Btl.Controls.csproj", "{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

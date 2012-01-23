@@ -73,13 +73,13 @@ namespace Btl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ClockFont {
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        public string ClockFontFamily {
             get {
-                return ((string)(this["ClockFont"]));
+                return ((string)(this["ClockFontFamily"]));
             }
             set {
-                this["ClockFont"] = value;
+                this["ClockFontFamily"] = value;
             }
         }
         
@@ -92,6 +92,30 @@ namespace Btl.Properties {
             }
             set {
                 this["UpgradeRequired"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18")]
+        public double ClockFontSize {
+            get {
+                return ((double)(this["ClockFontSize"]));
+            }
+            set {
+                this["ClockFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:25:00")]
+        public global::System.TimeSpan Duration {
+            get {
+                return ((global::System.TimeSpan)(this["Duration"]));
+            }
+            set {
+                this["Duration"] = value;
             }
         }
     }

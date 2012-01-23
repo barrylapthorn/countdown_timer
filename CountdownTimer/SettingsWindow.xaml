@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:Btl.View"
         Title="SettingsWindow"
-        Width="400"
-        Height="300">
+        Width="800"
+        Height="400"
+        SizeToContent="WidthAndHeight">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -15,7 +17,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <my:SettingsView x:Name="settingsView1" />
-        <Button Content="OK" Grid.Column="1" Grid.Row="1" Name="button1" />
-        <Button Content="Cancel" Grid.Row="1" Name="button2" />
+
+
     </Grid>
 </Window>

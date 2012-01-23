@@ -17,10 +17,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Btl.MicroMvvm;
 
 namespace Btl.ViewModel
 {
-    class SettingsViewModel
+    class SettingsViewModel : ObservableObject
     {
+        
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                return Properties.Settings.Default.Duration;
+            }
+            set
+            {
+                if (Properties.Settings.Default.Duration == value)
+                    return;
+                Properties.Settings.Default.Duration = value;
+                RaisePropertyChanged("Duration");
+            }
+        }
     }
 }

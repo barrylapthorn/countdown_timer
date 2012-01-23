@@ -5,12 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="Countdown Timer"
+        Closing="Window_Closing"
         d:DesignHeight="350"
         d:DesignWidth="525"
+        Loaded="Window_Loaded"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         Topmost="True"
-        mc:Ignorable="d" Loaded="Window_Loaded" Closing="Window_Closing">
+        mc:Ignorable="d">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo />
     </Window.TaskbarItemInfo>
@@ -23,6 +25,6 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <btl:TimerView />
+        <btl:TimerView x:Name="timerView" />
     </Grid>
 </Window>

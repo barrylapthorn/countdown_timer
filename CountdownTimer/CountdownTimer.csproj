@@ -124,14 +124,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MicroMvvm\MicroMvvm.csproj">
-      <Project>{9EFE6CBD-DF21-436E-9F81-E258BAB0B653}</Project>
-      <Name>MicroMvvm</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\TimeSpanControl\TimeSpanControl.csproj">
+    <ProjectReference Include="..\Btl\Controls\Btl.Controls.csproj">
       <Project>{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}</Project>
-      <Name>TimeSpanControl</Name>
+      <Name>Btl.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MicroMvvm\Btl.MicroMvvm.csproj">
+      <Project>{9EFE6CBD-DF21-436E-9F81-E258BAB0B653}</Project>
+      <Name>Btl.MicroMvvm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

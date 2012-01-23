@@ -35,7 +35,11 @@
                Grid.ColumnSpan="2"
                HorizontalContentAlignment="Center"
                Content="{Binding ElementName=viewModel,
-                                 Path=TimerValue}" FontSize="16" />
+                                 Path=TimerValue}"
+               FontFamily="{Binding ElementName=viewModel,
+                                    Path=ClockFontFamily}"
+               FontSize="{Binding ElementName=viewModel,
+                                  Path=ClockFontSize}" />
         <Button Name="StopButton"
                 Grid.Row="1"
                 Grid.Column="1"

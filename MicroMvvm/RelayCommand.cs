@@ -20,7 +20,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace MicroMvvm
+namespace Btl.MicroMvvm
 {
     /// <summary>
     /// A command whose sole purpose is to relay its functionality to other objects 

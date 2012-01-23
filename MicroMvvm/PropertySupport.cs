@@ -18,7 +18,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MicroMvvm
+namespace Btl.MicroMvvm
 {
     public static class PropertySupport
     {

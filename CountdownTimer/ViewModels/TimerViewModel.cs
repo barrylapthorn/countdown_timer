@@ -15,8 +15,8 @@
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
 
-using Btl.Model;
 using Btl.MicroMvvm;
+using Btl.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ using System.Windows.Media;
 using System.Windows.Shell;
 
 
-namespace Btl.ViewModel
+namespace Btl.ViewModels
 {
     class TimerViewModel : ObservableObject
     {

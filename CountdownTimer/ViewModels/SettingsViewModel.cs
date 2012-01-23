@@ -18,26 +18,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Btl.MicroMvvm;
+using Btl.Models;
+using System.Windows.Input;
 
 namespace Btl.ViewModel
 {
     class SettingsViewModel : ObservableObject
     {
-        
+        readonly SettingsModel _settings = new SettingsModel();
 
+        #region Properties
         public TimeSpan Duration
         {
             get
             {
-                return Properties.Settings.Default.Duration;
+                return _settings.Duration;
             }
             set
             {
-                if (Properties.Settings.Default.Duration == value)
+                if (_settings.Duration == value)
                     return;
-                Properties.Settings.Default.Duration = value;
+                _settings.Duration = value;
                 RaisePropertyChanged("Duration");
             }
         }
+        #endregion
+
+        #region Commands
+
+        void OkExecute()
+        {
+            _settings.Save();
+        }
+
+        bool CanOkExecute()
+        {
+            return true;
+        }
+
+        public ICommand StartTimer { get { return new RelayCommand(OkExecute, CanOkExecute); } }
+
+
+        #endregion
     }
 }

@@ -14,10 +14,8 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
+using Btl.Models;
 
 namespace Btl
 {
@@ -31,19 +29,8 @@ namespace Btl
             InitializeComponent();
 
             LoadWindowPosition();
-
-            //SettingsWindow s = new SettingsWindow();
-             
-            //s.ShowDialog();
-
-            timerView.viewModel.Duration = Properties.Settings.Default.Duration;
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        
         /// <summary>
         /// Window closing event.  
         /// </summary>
@@ -59,12 +46,14 @@ namespace Btl
         /// </summary>
         private void SaveWindowPosition()
         {
-            Properties.Settings.Default.Top = this.Top;
-            Properties.Settings.Default.Left = this.Left;
-            Properties.Settings.Default.Height = this.Height;
-            Properties.Settings.Default.Width = this.Width;
+            var settings = new SettingsModel();
 
-            Properties.Settings.Default.Save();
+            settings.WindowTop = this.Top;
+            settings.WindowLeft = this.Left;
+            settings.WindowHeight = this.Height;
+            settings.WindowWidth = this.Width;
+
+            settings.Save();
         }
 
         /// <summary>
@@ -72,31 +61,17 @@ namespace Btl
         /// </summary>
         private void LoadWindowPosition()
         {
-            UpgradeSettings();
+            var settings = new SettingsModel();
 
-            if (Properties.Settings.Default.Width > 0)
+            if (settings.WindowWidth > 0)
             {
-                this.Top = Properties.Settings.Default.Top;
-                this.Left = Properties.Settings.Default.Left;
-                this.Height = Properties.Settings.Default.Height;
-                this.Width = Properties.Settings.Default.Width;
+                this.Top = settings.WindowTop;
+                this.Left = settings.WindowLeft;
+                this.Height = settings.WindowHeight;
+                this.Width = settings.WindowWidth;
             }
-        }
 
-        /// <summary>
-        /// After defining 'UpgradeRequired' in our settings.settings and default
-        /// it to 'true', we check here to see if we need to import settings from
-        /// a previous application/assembly version.  In other words, a newer
-        /// assembly has 'UpgradeRequired=True' and triggers the upgrade.
-        /// </summary>
-        private static void UpgradeSettings()
-        {
-            if (Properties.Settings.Default.UpgradeRequired)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.Save();
-            }
+            this.Topmost = settings.TopMost;
         }
     }
 }

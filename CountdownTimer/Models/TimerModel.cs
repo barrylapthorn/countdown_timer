@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Threading;
 
-namespace Btl.Model
+namespace Btl.Models
 {
     internal class TimerModel
     {

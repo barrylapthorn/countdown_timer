@@ -8,10 +8,8 @@
         Closing="Window_Closing"
         d:DesignHeight="350"
         d:DesignWidth="525"
-        Loaded="Window_Loaded"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
-        Topmost="True"
         mc:Ignorable="d">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo />

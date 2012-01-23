@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Btl.Model
+namespace Btl.Models
 {
     public class TimerModelEventArgs : EventArgs
     {

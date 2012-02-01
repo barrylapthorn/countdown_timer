@@ -16,6 +16,7 @@
 
 using System.Windows;
 using Btl.Models;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Btl
 {
@@ -29,8 +30,27 @@ namespace Btl
             InitializeComponent();
 
             LoadWindowPosition();
+
+            //  Consume any TaskbarItemMessages that are being dispatched around
+            //  the mvvm framework.
+            Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeMessage);
         }
         
+        /// <summary>
+        /// Update the TaskbarItemInfo values with whatever is specifed in the
+        /// message.
+        /// </summary>
+        /// <param name="message"></param>
+        void ConsumeMessage(TaskbarItemMessage message)
+        {
+            if (message == null)
+                return;
+
+            this.TaskbarItemInfo.ProgressState = message.State;
+
+            if (message.HasValue)
+                this.TaskbarItemInfo.ProgressValue = message.Value;
+        }
         /// <summary>
         /// Window closing event.  
         /// </summary>

@@ -14,18 +14,27 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Btl.MicroMvvm;
-using Btl.Models;
-using System.Windows.Input;
 
-namespace Btl.ViewModel
+using System;
+using System.Windows.Input;
+using Btl.Models;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System.Collections;
+using GalaSoft.MvvmLight.Messaging;
+
+
+namespace Btl.ViewModels
 {
-    class SettingsViewModel : ObservableObject
+    public class SettingsViewModel : ViewModelBase
     {
         readonly SettingsModel _settings = new SettingsModel();
+
+        public SettingsViewModel()
+        {
+            OK = new RelayCommand(() => OkExecute(), CanOkExecute);
+            Cancel = new RelayCommand(() => CancelExecute());
+        }
 
         #region Properties
         public TimeSpan Duration
@@ -46,18 +55,27 @@ namespace Btl.ViewModel
 
         #region Commands
 
+        public ICommand OK { get; private set; }
+        public ICommand Cancel { get; private set; }
+
         void OkExecute()
         {
             _settings.Save();
+
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SettingsChanged });
+
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
         }
 
         bool CanOkExecute()
         {
-            return true;
+            return _settings.Modified;
         }
 
-        public ICommand StartTimer { get { return new RelayCommand(OkExecute, CanOkExecute); } }
-
+        void CancelExecute()
+        {
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
+        }
 
         #endregion
     }

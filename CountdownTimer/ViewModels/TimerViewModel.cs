@@ -15,58 +15,76 @@
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
 
-using Btl.MicroMvvm;
-using Btl.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Media;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using Btl.Models;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 
 namespace Btl.ViewModels
 {
-    class TimerViewModel : ObservableObject
+    public class TimerViewModel : ViewModelBase
     {
         #region Members
-        private Color statusColor;
-        readonly TimerModel timer = new TimerModel();
+        private Color _statusColor;
+        readonly TimerModel _timer = new TimerModel();
         #endregion
 
         #region Constructors
-        
+
         /// <summary>
         /// Construct a new timer view model.
         /// </summary>
         public TimerViewModel()
         {
             //  add event handlers
-            timer.Tick += (sender, e) => OnTick(sender, e);
-            timer.Completed += (sender, e) => OnCompleted(sender, e);
-            timer.Started += (sender, e) => OnStarted(sender, e);
-            timer.Stopped += (sender, e) => OnStopped(sender, e);
-            timer.TimerReset += (sender, e) => OnReset(sender, e);
+            AddEventHandlers();
 
-            UpdateTimerValues(timer.Duration);
+            //  update all the settings, such as the timer duration and so on.
+            UpdateMembersFromSettings();
+
+            //  bind the commands to their respective actions
+            BindCommands();
+
+            //  Register against the Messenger singleton to receive any simple
+            //  messages.  Specifically the one that says settings have changed.
+            Messenger.Default.Register<SimpleMessage>(this, ConsumeMessage);
+
         }
         #endregion
 
         #region Commands
 
+        public ICommand Settings { get; private set; }
+        public ICommand StartTimer { get; private set; }
+        public ICommand StopTimer { get; private set; }
+        public ICommand ResetTimer { get; private set; }
+
+        #region Settings Command
+
+        private void SettingsExecute()
+        {
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToSettingsView });
+        }
+
+        #endregion
+
         #region Start Command
+
         void StartTimerExecute()
         {
-            timer.Start();
+            _timer.Start();
         }
 
         bool CanStartTimerExecute()
         {
-            return !timer.Complete && timer.Status != TimerModel.State.Running  ;
+            return !_timer.Complete && _timer.Status != TimerModel.State.Running;
         }
-
-        public ICommand StartTimer { get { return new RelayCommand(StartTimerExecute, CanStartTimerExecute); } }
 
         #endregion
 
@@ -74,23 +92,22 @@ namespace Btl.ViewModels
 
         void StopTimerExecute()
         {
-            timer.Stop();
+            _timer.Stop();
         }
 
         bool CanStopTimerExecute()
         {
-            return !timer.Complete && timer.Status == TimerModel.State.Running;
+            return !_timer.Complete && _timer.Status == TimerModel.State.Running;
         }
 
-        public ICommand StopTimer { get { return new RelayCommand(StopTimerExecute, CanStopTimerExecute); } }
         #endregion
 
         #region Reset Command
 
         void ResetTimerExecute()
         {
-            timer.Reset();
-            UpdateTimerValues(timer.Remaining);
+            _timer.Reset();
+            UpdateTimerValues(_timer.Remaining);
         }
 
         bool CanResetTimerExecute()
@@ -98,7 +115,13 @@ namespace Btl.ViewModels
             return true;
         }
 
-        public ICommand ResetTimer { get { return new RelayCommand(ResetTimerExecute, CanResetTimerExecute); } }
+        private void BindCommands()
+        {
+            Settings = new RelayCommand(() => SettingsExecute());
+            StartTimer = new RelayCommand(() => StartTimerExecute(), CanStartTimerExecute);
+            StopTimer = new RelayCommand(() => StopTimerExecute(), CanStopTimerExecute);
+            ResetTimer = new RelayCommand(() => ResetTimerExecute(), CanResetTimerExecute);
+        }
         #endregion
 
         #endregion
@@ -150,15 +173,15 @@ namespace Btl.ViewModels
         {
             get
             {
-                return statusColor;
+                return _statusColor;
             }
             set
             {
-                if (value != statusColor)
+                if (value != _statusColor)
                 {
-                    statusColor = value;
+                    _statusColor = value;
                     RaisePropertyChanged("StatusColor");
-                    StatusBrush = new SolidColorBrush(statusColor);
+                    StatusBrush = new SolidColorBrush(_statusColor);
                 }
             }
         }
@@ -167,14 +190,14 @@ namespace Btl.ViewModels
         {
             get
             {
-                return timer.Duration;
+                return _timer.Duration;
             }
 
             set
             {
-                if (timer.Duration == value)
+                if (_timer.Duration == value)
                     return;
-                timer.Duration = value;
+                _timer.Duration = value;
                 RaisePropertyChanged("Duration");
             }
         }
@@ -250,6 +273,39 @@ namespace Btl.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Update the TimerViewModel values from the (user defined) settings.
+        /// </summary>
+        private void UpdateMembersFromSettings()
+        {
+            SettingsModel settings = new SettingsModel();
+
+            Duration = settings.Duration;
+
+            UpdateTimerValues(settings.Duration);
+        }
+
+        /// <summary>
+        /// Consume any messages that are passed between models
+        /// </summary>
+        /// <param name="message"></param>
+        void ConsumeMessage(SimpleMessage message)
+        {
+            switch (message.Type)
+            {
+                case SimpleMessage.MessageType.SwitchToTimerView:
+                    //  ignored
+                    break;
+                case SimpleMessage.MessageType.SwitchToSettingsView:
+                    //  ignored
+                    break;
+                case SimpleMessage.MessageType.SettingsChanged:
+                    StopTimerExecute();
+                    UpdateMembersFromSettings();
+                    break;
+            }
+        }
         /// <summary>
         /// Update the timer view model properties based on the time span passed in.
         /// </summary>
@@ -298,67 +354,60 @@ namespace Btl.ViewModels
             TimerValue = string.Format("{0}:{1}:{2}", t.Hours.ToString("D2"),
                 t.Minutes.ToString("D2"), t.Seconds.ToString("D2"));
 
-            PercentElapsed = 100.0 - (100.0 * timer.Remaining.TotalSeconds / timer.Duration.TotalSeconds);
+            PercentElapsed = 100.0 - (100.0 * _timer.Remaining.TotalSeconds / _timer.Duration.TotalSeconds);
+        }
+
+        /// <summary>
+        /// Add the event handlers.
+        /// </summary>
+        private void AddEventHandlers()
+        {
+            _timer.Tick += (sender, e) => OnTick(sender, e);
+            _timer.Completed += (sender, e) => OnCompleted(sender, e);
+            _timer.Started += (sender, e) => OnStarted(sender, e);
+            _timer.Stopped += (sender, e) => OnStopped(sender, e);
+            _timer.TimerReset += (sender, e) => OnReset(sender, e);
         }
         #endregion
 
         #region Event handlers
         private void OnCompleted(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(timer.Remaining, e);
+            UpdateTimer(_timer.Remaining, e);
 
             SystemSounds.Exclamation.Play();
 
-
-            if (taskbarItemInfo != null)
-            {
-                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
-                taskbarItemInfo.ProgressValue = 1.0;
-            }
+            Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = 1.0 });
         }
 
         private void OnTick(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(timer.Remaining, e);
+            UpdateTimer(_timer.Remaining, e);
 
-            if (taskbarItemInfo != null)
-            {
-                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
-                taskbarItemInfo.ProgressValue = PercentElapsed / 100.0;
-            }
+            Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = PercentElapsed / 100.0 });
         }
 
         void OnStarted(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(timer.Remaining, e);
+            UpdateTimer(_timer.Remaining, e);
 
             SystemSounds.Beep.Play();
 
-            if (taskbarItemInfo != null)
-            {
-                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Normal;
-            }
+            Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal });
         }
 
         private void OnStopped(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(timer.Remaining, e);
+            UpdateTimer(_timer.Remaining, e);
 
-            if (taskbarItemInfo != null)
-            {
-                taskbarItemInfo.ProgressState = TaskbarItemProgressState.Paused;
-            }
+            Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Paused });
         }
 
         private void OnReset(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(timer.Remaining, e);
+            UpdateTimer(_timer.Remaining, e);
 
-            if (taskbarItemInfo != null)
-            {
-                taskbarItemInfo.ProgressState = TaskbarItemProgressState.None;
-                taskbarItemInfo.ProgressValue = 0.0;
-            }
+            Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.None, Value = 0.0 });
         }
         #endregion
 

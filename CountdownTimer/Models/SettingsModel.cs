@@ -189,11 +189,12 @@ namespace Btl.Models
             Properties.Settings.Default.Left = WindowLeft;
             Properties.Settings.Default.Height = WindowHeight;
             Properties.Settings.Default.Width = WindowWidth;
-
             Properties.Settings.Default.TopMost = TopMost;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
+
+            Modified = false;
         }
 
         /// <summary>
@@ -209,6 +210,15 @@ namespace Btl.Models
             WindowWidth = Properties.Settings.Default.Width;
             TopMost = Properties.Settings.Default.TopMost;
         }
+
+        /// <summary>
+        /// Reload the settings from the application properties if necessary.
+        /// </summary>
+        public void Reload()
+        {
+            LoadSettings();
+        }
+
         /// <summary>
         /// Save the settings if they have been modified, otherwise do nothing.
         /// </summary>

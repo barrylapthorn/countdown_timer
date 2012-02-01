@@ -14,13 +14,9 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 
-namespace Btl.View
+namespace Btl.Views
 {
     /// <summary>
     /// Interaction logic for TimerView.xaml
@@ -30,20 +26,6 @@ namespace Btl.View
         public TimerView()
         {
             InitializeComponent();
-        }
-        
-        private void SetTaskbarItemInfo()
-        {
-            Window parent = Window.GetWindow(this);
-            if (parent != null && parent.TaskbarItemInfo != null)
-            {
-                viewModel.TaskbarItemInfo = parent.TaskbarItemInfo;
-            }
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            SetTaskbarItemInfo();
         }
     }
 }

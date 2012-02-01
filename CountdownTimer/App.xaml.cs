@@ -14,9 +14,6 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace Btl

@@ -14,21 +14,24 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 
-namespace Btl
+namespace Btl.Models
 {
-    /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
-    /// </summary>
-    public partial class SettingsWindow : Window
+    public class SimpleMessage
     {
-        public SettingsWindow()
+        public SimpleMessage()
         {
-            InitializeComponent();
+            Type = MessageType.SwitchToTimerView;
         }
+
+        public enum MessageType
+        {
+            SwitchToTimerView,
+            SwitchToSettingsView,
+            SettingsChanged
+        }
+
+        public MessageType Type { get; set; }
+
     }
 }

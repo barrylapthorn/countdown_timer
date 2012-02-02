@@ -93,5 +93,7 @@ namespace Btl
 
             this.Topmost = settings.TopMost;
         }
+
+
     }
 }

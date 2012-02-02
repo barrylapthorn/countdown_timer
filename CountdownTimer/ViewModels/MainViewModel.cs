@@ -48,6 +48,8 @@ namespace Btl.ViewModels
             CurrentViewModel = _timerViewModel;
             TimerViewCommand = new RelayCommand(() => ExecuteViewTimerCommand());
             SettingsViewCommand = new RelayCommand(() => ExecuteViewSettingsCommand());
+            PlayCommand = new RelayCommand(() => ExecutePlayCommand());
+            PauseCommand = new RelayCommand(() => ExecutePauseCommand());
 
             Messenger.Default.Register<SimpleMessage>(this, ConsumeMessage);
         }
@@ -84,8 +86,9 @@ namespace Btl.ViewModels
         }
 
         public ICommand TimerViewCommand { get; private set; }
-
         public ICommand SettingsViewCommand { get; private set; }
+        public ICommand PlayCommand { get; private set; }
+        public ICommand PauseCommand { get; private set; }
         
         private void ExecuteViewTimerCommand()
         {
@@ -96,5 +99,17 @@ namespace Btl.ViewModels
         {
             CurrentViewModel = _settingsViewModel;
         }
+
+        private void ExecutePlayCommand()
+        {
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.StartTimer });
+        }
+
+        private void ExecutePauseCommand()
+        {
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.StopTimer });
+        }
+
+
     }
 }

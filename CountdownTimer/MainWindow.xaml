@@ -16,14 +16,32 @@
         mc:Ignorable="d">
     <Window.Resources />
     <Window.TaskbarItemInfo>
-        <TaskbarItemInfo />
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfoCollection>
+                    <ThumbButtonInfo Command="{Binding PlayCommand}"
+                                     Description="Start"
+                                     DismissWhenClicked="False"
+                                     ImageSource="Resources\icon.play.png" />
+                    <ThumbButtonInfo Command="{Binding PauseCommand}"
+                                     Description="Pause"
+                                     DismissWhenClicked="False"
+                                     ImageSource="Resources\icon.pause.png" />
+                </ThumbButtonInfoCollection>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+
     </Window.TaskbarItemInfo>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl Content="{Binding CurrentViewModel}" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <ContentControl HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Top"
+                        Content="{Binding CurrentViewModel}" />
 
     </Grid>
 </Window>

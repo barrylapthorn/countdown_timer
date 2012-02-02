@@ -28,7 +28,9 @@ namespace Btl.Models
         {
             SwitchToTimerView,
             SwitchToSettingsView,
-            SettingsChanged
+            SettingsChanged,
+            StopTimer,
+            StartTimer
         }
 
         public MessageType Type { get; set; }

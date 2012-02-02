@@ -320,6 +320,12 @@ namespace Btl.ViewModels
                     StopTimerExecute();
                     UpdateMembersFromSettings();
                     break;
+                case SimpleMessage.MessageType.StopTimer:
+                    StopTimerExecute();
+                    break;
+                case SimpleMessage.MessageType.StartTimer:
+                    StartTimerExecute();
+                    break;
             }
         }
         /// <summary>

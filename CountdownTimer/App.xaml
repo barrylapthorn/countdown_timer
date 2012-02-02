@@ -9,15 +9,24 @@
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d">
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/icon.pause.xaml" />
+                <ResourceDictionary Source="Resources/icon.play.xaml" />
+                <ResourceDictionary Source="Resources/icon.settings.xaml" />
+                <ResourceDictionary Source="Resources/icon.rewind.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
-        <DataTemplate DataType="{x:Type vm:TimerViewModel}">
-            <views:TimerView />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TimerViewModel}">
+                <views:TimerView />
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
-            <views:SettingsView />
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>

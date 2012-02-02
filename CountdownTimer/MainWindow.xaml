@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <ContentControl Content="{Binding CurrentViewModel}" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
     </Grid>
 </Window>

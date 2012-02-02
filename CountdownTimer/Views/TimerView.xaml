@@ -6,7 +6,8 @@
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid Margin="5" Background="{Binding StatusBrush}">
+
+    <Grid Margin="5">
         <Grid.Resources>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5" />
@@ -18,33 +19,51 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="194*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="26*" />
+            <RowDefinition Height="164*" />
         </Grid.RowDefinitions>
         <Label Name="TimerLabel"
                Grid.Column="0"
                Grid.ColumnSpan="2"
                HorizontalContentAlignment="Center"
+               Background="{Binding StatusBrush}"
                Content="{Binding TimerValue}"
                FontFamily="{Binding ClockFontFamily}"
                FontSize="{Binding ClockFontSize}" />
         <Button Grid.Row="1"
                 Grid.Column="1"
                 Command="{Binding StopTimer}"
-                Content="Pause" />
+                Content="{StaticResource IconPause}" />
         <Button Grid.Row="1"
                 Command="{Binding StartTimer}"
-                Content="Start" />
+                Content="{StaticResource IconPlay}" />
+
         <Button Grid.Row="3"
                 Grid.Column="1"
                 Command="{Binding ResetTimer}"
-                Content="Reset" />
+                Content="{StaticResource IconRewind}" />
+
         <Button Grid.Row="3"
                 Command="{Binding Settings}"
-                Content="Settings" />
+                Content="{StaticResource IconSettings}" />
+
+        <TextBlock Grid.Row="4"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="8">
+            <TextBlock.Text>
+                <Binding Path="CompletedCount">
+                    <Binding.StringFormat>Completed: {0}</Binding.StringFormat>
+                </Binding>
+            </TextBlock.Text>
+        </TextBlock>
     </Grid>
 </UserControl>

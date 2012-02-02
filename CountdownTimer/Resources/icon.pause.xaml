@@ -1,0 +1,17 @@
+﻿
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingBrush x:Key="BrushPause" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FF000000" Geometry="F1 M 17,15L 22,15L 22,33L 17,33L 17,15 Z M 26,15L 31,15L 31,33L 26,33L 26,15 Z " />
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+    <Rectangle x:Key="IconPause"
+               Width="32"
+               Height="32"
+               Fill="{StaticResource BrushPause}"
+               x:Shared="False" />
+</ResourceDictionary>

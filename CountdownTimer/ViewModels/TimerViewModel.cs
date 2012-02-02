@@ -31,6 +31,7 @@ namespace Btl.ViewModels
     public class TimerViewModel : ViewModelBase
     {
         #region Members
+        private int _completedCount = 0;
         private Color _statusColor;
         readonly TimerModel _timer = new TimerModel();
         #endregion
@@ -202,6 +203,21 @@ namespace Btl.ViewModels
             }
         }
 
+        public int CompletedCount
+        {
+            get
+            {
+                return _completedCount;
+            }
+            private set
+            {
+                if (_completedCount == value)
+                    return;
+                _completedCount = value;
+                RaisePropertyChanged("CompletedCount");
+            }
+        }
+
         Brush statusBrush = new SolidColorBrush();
         public Brush StatusBrush
         {
@@ -331,13 +347,13 @@ namespace Btl.ViewModels
                     StatusColor = Colors.Beige;
                     break;
                 case TimerModelEventArgs.Status.Started:
-                    StatusColor = Colors.Orange;
+                    StatusColor = Colors.LightSalmon;
                     break;
                 case TimerModelEventArgs.Status.Running:
-                    StatusColor = Colors.Orange;
+                    StatusColor = Colors.LightSalmon;
                     break;
                 case TimerModelEventArgs.Status.Completed:
-                    StatusColor = Colors.ForestGreen;
+                    StatusColor = Colors.LightGreen;
                     break;
                 case TimerModelEventArgs.Status.Reset:
                     StatusColor = Colors.Beige;
@@ -374,6 +390,8 @@ namespace Btl.ViewModels
         private void OnCompleted(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);
+
+            CompletedCount++;
 
             SystemSounds.Exclamation.Play();
 

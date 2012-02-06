@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="Btl.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:controls="clr-namespace:Btl.Controls;assembly=Btl.Controls.MyControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:my="clr-namespace:Btl.UserControls"
              d:DesignHeight="300"
              d:DesignWidth="600"
              mc:Ignorable="d">
+    <UserControl.Resources />
 
     <Grid>
         <Grid.Resources>
@@ -94,14 +95,47 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Value="{Binding Duration}" />
-        <my:SimpleFontManager x:Name="simpleFontManager1"
-                              Grid.Row="4"
-                              Grid.Column="1" />
+
+
+
+        <ComboBox Grid.Row="4"
+                  Grid.Column="1"
+                  VerticalAlignment="Top"
+                  ItemTemplate="{DynamicResource FontTemplate}"
+                  SelectedValue="{Binding FontFamily}">
+            <ComboBox.Resources>
+                <CollectionViewSource x:Key="myFonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}">
+                    <CollectionViewSource.SortDescriptions>
+                        <ComponentModel:SortDescription PropertyName="Source" />
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+
+                <Style x:Key="FontStyle">
+                    <Setter Property="Control.FontFamily" Value="{Binding Source}" />
+                    <Setter Property="Control.FontSize" Value="16" />
+                </Style>
+
+                <DataTemplate x:Key="FontTemplate">
+                    <StackPanel VirtualizingStackPanel.IsVirtualizing="True">
+                        <TextBlock Style="{StaticResource FontStyle}"
+                                   Text="{Binding Source}"
+                                   ToolTip="{Binding Source}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.Resources>
+            <ComboBox.ItemsSource>
+                <Binding Source="{StaticResource myFonts}" />
+            </ComboBox.ItemsSource>
+        </ComboBox>
+
+
+
+
         <Label Name="label1"
                Grid.Row="5"
                Content="Font size" />
         <DockPanel Grid.Row="5" Grid.Column="1">
-            <Slider Name="FontSize"
+            <Slider Name="MyFontSize"
                     MinWidth="120"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -116,7 +150,7 @@
                        VerticalAlignment="Center"
                        DockPanel.Dock="Right">
                 <TextBlock.Text>
-                    <Binding ElementName="FontSize" Path="Value">
+                    <Binding ElementName="MyFontSize" Path="Value">
                         <Binding.StringFormat>{0:#} pts</Binding.StringFormat>
                     </Binding>
                 </TextBlock.Text>

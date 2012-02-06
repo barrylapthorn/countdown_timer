@@ -74,12 +74,12 @@ namespace Btl.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
-        public string ClockFontFamily {
+        public string FontFamily {
             get {
-                return ((string)(this["ClockFontFamily"]));
+                return ((string)(this["FontFamily"]));
             }
             set {
-                this["ClockFontFamily"] = value;
+                this["FontFamily"] = value;
             }
         }
         
@@ -92,18 +92,6 @@ namespace Btl.Properties {
             }
             set {
                 this["UpgradeRequired"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("18")]
-        public double ClockFontSize {
-            get {
-                return ((double)(this["ClockFontSize"]));
-            }
-            set {
-                this["ClockFontSize"] = value;
             }
         }
         

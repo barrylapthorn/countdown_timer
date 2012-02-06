@@ -15,6 +15,7 @@
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
 using System;
+using System.Windows.Media;
 
 namespace Btl.Models
 {
@@ -57,6 +58,22 @@ namespace Btl.Models
 
         #region Properties
 
+        private FontFamily _FontFamily;
+
+        public System.Windows.Media.FontFamily FontFamily
+        {
+            get
+            {
+                return _FontFamily;
+            }
+            set
+            {
+                if (_FontFamily == value)
+                    return;
+                _FontFamily = value;
+                Modified = true;
+            }
+        }
         /// <summary>
         /// Returns whether the settings have been modified in some way.
         /// </summary>
@@ -78,7 +95,6 @@ namespace Btl.Models
 
                 _duration = value;
                 Modified = true;
-
             }
         }
 
@@ -208,6 +224,7 @@ namespace Btl.Models
             Properties.Settings.Default.Width = WindowWidth;
             Properties.Settings.Default.TopMost = TopMost;
             Properties.Settings.Default.FontSize = FontSize;
+            Properties.Settings.Default.FontFamily = FontFamily.Source;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
@@ -228,6 +245,7 @@ namespace Btl.Models
             WindowWidth = Properties.Settings.Default.Width;
             TopMost = Properties.Settings.Default.TopMost;
             FontSize = Properties.Settings.Default.FontSize;
+            FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
         }
 
         /// <summary>

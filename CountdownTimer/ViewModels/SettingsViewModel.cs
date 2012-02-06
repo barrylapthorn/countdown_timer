@@ -22,6 +22,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Media;
 
 
 namespace Btl.ViewModels
@@ -79,6 +80,21 @@ namespace Btl.ViewModels
                     return;
                 _settings.FontSize = value;
                 RaisePropertyChanged("FontSize");
+            }
+        }
+
+        public FontFamily FontFamily
+        {
+            get
+            {
+                return _settings.FontFamily;
+            }
+            set
+            {
+                if (_settings.FontFamily == value)
+                    return;
+                _settings.FontFamily = value;
+                RaisePropertyChanged("FontFamily");
             }
         }
         #endregion

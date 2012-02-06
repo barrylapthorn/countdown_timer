@@ -262,13 +262,13 @@ namespace Btl.ViewModels
         {
             get
             {
-                return Properties.Settings.Default.ClockFontFamily;
+                return Properties.Settings.Default.FontFamily;
             }
             set
             {
-                if (Properties.Settings.Default.ClockFontFamily == value)
+                if (Properties.Settings.Default.FontFamily == value)
                     return;
-                Properties.Settings.Default.ClockFontFamily = value;
+                Properties.Settings.Default.FontFamily = value;
                 RaisePropertyChanged("ClockFontFamily");
             }
         }

@@ -10,8 +10,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
     <Rectangle x:Key="IconPause"
-               Width="32"
-               Height="32"
+               Width="24"
+               Height="24"
                Fill="{StaticResource BrushPause}"
                x:Shared="False" />
 </ResourceDictionary>

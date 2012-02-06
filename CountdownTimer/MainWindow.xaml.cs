@@ -25,6 +25,7 @@ namespace Btl
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,8 @@ namespace Btl
 
             //  Consume any TaskbarItemMessages that are being dispatched around
             //  the mvvm framework.
-            Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeMessage);
+            Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeTaskbarItemMessage);
+            Messenger.Default.Register<SimpleMessage>(this, ConsumeSimpleMessage);
         }
         
         /// <summary>
@@ -41,7 +43,7 @@ namespace Btl
         /// message.
         /// </summary>
         /// <param name="message"></param>
-        void ConsumeMessage(TaskbarItemMessage message)
+        void ConsumeTaskbarItemMessage(TaskbarItemMessage message)
         {
             if (message == null)
                 return;
@@ -50,6 +52,19 @@ namespace Btl
 
             if (message.HasValue)
                 this.TaskbarItemInfo.ProgressValue = message.Value;
+        }
+
+        /// <summary>
+        /// Only respond to settings that directly affect this main window.
+        /// </summary>
+        /// <param name="message"></param>
+        private void ConsumeSimpleMessage(SimpleMessage message)
+        {
+            if (message.Type == SimpleMessage.MessageType.SettingsChanged)
+            {
+                var settings = new SettingsModel();
+                this.Topmost = settings.TopMost;
+            }
         }
         /// <summary>
         /// Window closing event.  

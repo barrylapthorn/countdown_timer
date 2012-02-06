@@ -38,7 +38,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="129*" />
         </Grid.ColumnDefinitions>
-        <CheckBox Name="checkBox1"
+        <CheckBox Name="TopMost"
                   Grid.RowSpan="2"
                   Grid.Column="1"
                   Width="26"
@@ -47,7 +47,7 @@
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   VerticalContentAlignment="Top"
-                  Content="" />
+                  IsChecked="{Binding TopMost}"/>
         <Label Content="Make countdown window top-most" />
         <Label Grid.Row="1" Content="Duration" />
         <Label Grid.Row="2" Content="Starting sound" />

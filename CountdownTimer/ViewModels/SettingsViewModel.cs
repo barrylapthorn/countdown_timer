@@ -51,6 +51,21 @@ namespace Btl.ViewModels
                 RaisePropertyChanged("Duration");
             }
         }
+
+        public bool TopMost
+        {
+            get
+            {
+                return _settings.TopMost;
+            }
+            set
+            {
+                if (_settings.TopMost == value)
+                    return;
+                _settings.TopMost = value;
+                RaisePropertyChanged("TopMost");
+            }
+        }
         #endregion
 
         #region Commands

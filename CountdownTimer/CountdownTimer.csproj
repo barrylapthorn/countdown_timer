@@ -75,6 +75,10 @@
     <Compile Include="Models\TaskbarItemMessage.cs" />
     <Compile Include="Models\TimerModel.cs" />
     <Compile Include="Models\TimerModelEventArgs.cs" />
+    <Compile Include="UserControls\InstalledFonts.cs" />
+    <Compile Include="UserControls\SimpleFontManager.xaml.cs">
+      <DependentUpon>SimpleFontManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -112,6 +116,10 @@
     <Page Include="Resources\icon.settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SimpleFontManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
@@ -161,6 +169,7 @@
     <Resource Include="Resources\icon.pause.png" />
     <Resource Include="Resources\icon.play.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

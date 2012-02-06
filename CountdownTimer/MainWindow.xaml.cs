@@ -66,6 +66,7 @@ namespace Btl
                 this.Topmost = settings.TopMost;
             }
         }
+
         /// <summary>
         /// Window closing event.  
         /// </summary>

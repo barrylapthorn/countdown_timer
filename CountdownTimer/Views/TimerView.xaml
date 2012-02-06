@@ -36,7 +36,7 @@
                Background="{Binding StatusBrush}"
                Content="{Binding TimerValue}"
                FontFamily="{Binding ClockFontFamily}"
-               FontSize="{Binding ClockFontSize}" />
+               FontSize="{Binding FontSize}" />
         <Button Grid.Row="1"
                 Grid.Column="1"
                 Command="{Binding StopTimer}"

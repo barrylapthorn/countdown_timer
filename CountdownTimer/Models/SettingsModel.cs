@@ -45,6 +45,7 @@ namespace Btl.Models
 
         private TimeSpan _duration;
 
+        private double _fontSize = 0d;
         private double _windowTop;
         private double _windowLeft;
         private double _windowHeight;
@@ -93,6 +94,22 @@ namespace Btl.Models
                     return;
 
                 _topMost = value;
+                Modified = true;
+            }
+        }
+
+        public double FontSize
+        {
+            get
+            {
+                return _fontSize;
+            }
+
+            set
+            {
+                if (_fontSize == value)
+                    return;
+                _fontSize = value;
                 Modified = true;
             }
         }
@@ -190,6 +207,7 @@ namespace Btl.Models
             Properties.Settings.Default.Height = WindowHeight;
             Properties.Settings.Default.Width = WindowWidth;
             Properties.Settings.Default.TopMost = TopMost;
+            Properties.Settings.Default.FontSize = FontSize;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
@@ -209,6 +227,7 @@ namespace Btl.Models
             WindowHeight = Properties.Settings.Default.Height;
             WindowWidth = Properties.Settings.Default.Width;
             TopMost = Properties.Settings.Default.TopMost;
+            FontSize = Properties.Settings.Default.FontSize;
         }
 
         /// <summary>

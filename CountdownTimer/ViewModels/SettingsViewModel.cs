@@ -66,6 +66,21 @@ namespace Btl.ViewModels
                 RaisePropertyChanged("TopMost");
             }
         }
+
+        public double FontSize
+        {
+            get
+            {
+                return _settings.FontSize;
+            }
+            set
+            {
+                if (_settings.FontSize == value)
+                    return;
+                _settings.FontSize = value;
+                RaisePropertyChanged("FontSize");
+            }
+        }
         #endregion
 
         #region Commands

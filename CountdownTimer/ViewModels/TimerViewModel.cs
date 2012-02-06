@@ -32,6 +32,7 @@ namespace Btl.ViewModels
     {
         #region Members
         private int _completedCount = 0;
+        private double _fontSize = 0d;
         private Color _statusColor;
         readonly TimerModel _timer = new TimerModel();
         #endregion
@@ -272,18 +273,18 @@ namespace Btl.ViewModels
             }
         }
 
-        public double ClockFontSize
+        public double FontSize
         {
             get
             {
-                return Properties.Settings.Default.ClockFontSize;
+                return _fontSize;
             }
             set
             {
-                if (Properties.Settings.Default.ClockFontSize == value)
+                if (_fontSize == value)
                     return;
-                Properties.Settings.Default.ClockFontSize = value;
-                RaisePropertyChanged("ClockFontSize");
+                _fontSize = value;
+                RaisePropertyChanged("FonSize");
             }
         }
         #endregion
@@ -298,6 +299,7 @@ namespace Btl.ViewModels
             SettingsModel settings = new SettingsModel();
 
             Duration = settings.Duration;
+            FontSize = settings.FontSize;
 
             UpdateTimerValues(settings.Duration);
         }

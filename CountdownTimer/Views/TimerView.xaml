@@ -26,7 +26,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="26*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="164*" />
         </Grid.RowDefinitions>
         <Label Name="TimerLabel"
@@ -35,7 +36,7 @@
                HorizontalContentAlignment="Center"
                Background="{Binding StatusBrush}"
                Content="{Binding TimerValue}"
-               FontFamily="{Binding ClockFontFamily}"
+               FontFamily="{Binding FontFamily}"
                FontSize="{Binding FontSize}" />
         <Button Grid.Row="1"
                 Grid.Column="1"
@@ -65,5 +66,12 @@
                 </Binding>
             </TextBlock.Text>
         </TextBlock>
+
+        <Button Grid.Row="5"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Command="{Binding About}"
+                Content="About"
+                Style="{StaticResource LinkButton}" />
     </Grid>
 </UserControl>

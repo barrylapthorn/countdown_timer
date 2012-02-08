@@ -130,5 +130,29 @@ namespace Btl.Properties {
                 this["FontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayBeep {
+            get {
+                return ((bool)(this["PlayBeep"]));
+            }
+            set {
+                this["PlayBeep"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayExclamation {
+            get {
+                return ((bool)(this["PlayExclamation"]));
+            }
+            set {
+                this["PlayExclamation"] = value;
+            }
+        }
     }
 }

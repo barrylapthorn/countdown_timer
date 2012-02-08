@@ -29,5 +29,11 @@
     <Setting Name="FontSize" Type="System.Double" Scope="User">
       <Value Profile="(Default)">16</Value>
     </Setting>
+    <Setting Name="PlayBeep" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PlayExclamation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

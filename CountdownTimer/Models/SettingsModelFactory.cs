@@ -14,27 +14,20 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Btl.Models
 {
-    public class SimpleMessage
+    /// <summary>
+    /// A simple class with a factory method to return a settings model.
+    /// </summary>
+    class SettingsModelFactory
     {
-        public SimpleMessage()
+        public static ISettingsModel GetSettings()
         {
-            Type = MessageType.SwitchToTimerView;
+            return new SettingsModel();
         }
-
-        public enum MessageType
-        {
-            SwitchToTimerView,
-            SwitchToSettingsView,
-            SwitchToAboutView,
-            SettingsChanged,
-            StopTimer,
-            StartTimer
-        }
-
-        public MessageType Type { get; set; }
-
     }
 }

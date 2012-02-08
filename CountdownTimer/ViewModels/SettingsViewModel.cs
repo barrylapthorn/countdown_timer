@@ -17,19 +17,18 @@
 
 using System;
 using System.Windows.Input;
+using System.Windows.Media;
 using Btl.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Collections;
 using GalaSoft.MvvmLight.Messaging;
-using System.Windows.Media;
 
 
 namespace Btl.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        readonly SettingsModel _settings = new SettingsModel();
+        readonly ISettingsModel _settings = SettingsModelFactory.GetSettings();
 
         public SettingsViewModel()
         {
@@ -97,6 +96,36 @@ namespace Btl.ViewModels
                 RaisePropertyChanged("FontFamily");
             }
         }
+
+        public bool PlayBeep
+        {
+            get
+            {
+                return _settings.PlayBeep;
+            }
+            set
+            {
+                if (_settings.PlayBeep == value)
+                    return;
+                _settings.PlayBeep = value;
+                RaisePropertyChanged("PlayBeep");
+            }
+        }
+
+        public bool PlayExclamation
+        {
+            get
+            {
+                return _settings.PlayExclamation;
+            }
+            set
+            {
+                if (_settings.PlayExclamation == value)
+                    return;
+                _settings.PlayExclamation = value;
+                RaisePropertyChanged("PlayExclamation");
+            }
+        }
         #endregion
 
         #region Commands
@@ -109,7 +138,6 @@ namespace Btl.ViewModels
             _settings.Save();
 
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SettingsChanged });
-
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
         }
 

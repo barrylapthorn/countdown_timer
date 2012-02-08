@@ -20,9 +20,11 @@ using System.Windows.Media;
 namespace Btl.Models
 {
     /// <summary>
-    /// A class that just encapsulates the application settings.
+    /// A class that just encapsulates the application settings.  This looks
+    /// like a lot of replication, but it does always give us the option of 
+    /// switching out the settings backing store at a later date.
     /// </summary>
-    internal class SettingsModel
+    internal class SettingsModel : ISettingsModel
     {
         #region Constructors
 
@@ -44,6 +46,8 @@ namespace Btl.Models
 
         #region Private members
 
+        private bool _PlayExclamation;
+        private bool _PlayBeep;
         private TimeSpan _duration;
 
         private double _fontSize = 0d;
@@ -94,6 +98,36 @@ namespace Btl.Models
                     return;
 
                 _duration = value;
+                Modified = true;
+            }
+        }
+
+        public bool PlayBeep
+        {
+            get
+            {
+                return _PlayBeep;
+            }
+            set
+            {
+                if (_PlayBeep == value)
+                    return;
+                _PlayBeep = value;
+                Modified = true;
+            }
+        }
+
+        public bool PlayExclamation
+        {
+            get
+            {
+                return _PlayExclamation;
+            }
+            set
+            {
+                if (_PlayExclamation == value)
+                    return;
+                _PlayExclamation = value;
                 Modified = true;
             }
         }
@@ -225,9 +259,12 @@ namespace Btl.Models
             Properties.Settings.Default.TopMost = TopMost;
             Properties.Settings.Default.FontSize = FontSize;
             Properties.Settings.Default.FontFamily = FontFamily.Source;
+            Properties.Settings.Default.PlayExclamation = PlayExclamation;
+            Properties.Settings.Default.PlayBeep = PlayBeep;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
+
 
             Modified = false;
         }
@@ -246,6 +283,8 @@ namespace Btl.Models
             TopMost = Properties.Settings.Default.TopMost;
             FontSize = Properties.Settings.Default.FontSize;
             FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+            PlayBeep = Properties.Settings.Default.PlayBeep;
+            PlayExclamation = Properties.Settings.Default.PlayExclamation;
         }
 
         /// <summary>

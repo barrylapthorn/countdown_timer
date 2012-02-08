@@ -62,7 +62,7 @@ namespace Btl
         {
             if (message.Type == SimpleMessage.MessageType.SettingsChanged)
             {
-                var settings = new SettingsModel();
+                var settings = SettingsModelFactory.GetSettings();
                 this.Topmost = settings.TopMost;
             }
         }
@@ -82,7 +82,7 @@ namespace Btl
         /// </summary>
         private void SaveWindowPosition()
         {
-            var settings = new SettingsModel();
+            var settings = SettingsModelFactory.GetSettings();
 
             settings.WindowTop = this.Top;
             settings.WindowLeft = this.Left;
@@ -97,7 +97,7 @@ namespace Btl
         /// </summary>
         private void LoadWindowPosition()
         {
-            var settings = new SettingsModel();
+            var settings = SettingsModelFactory.GetSettings();
 
             if (settings.WindowWidth > 0)
             {

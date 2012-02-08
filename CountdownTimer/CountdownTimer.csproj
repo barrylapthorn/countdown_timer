@@ -70,15 +70,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\EnumExtension.cs" />
+    <Compile Include="Models\ISettingsModel.cs" />
+    <Compile Include="Models\SettingsModelFactory.cs" />
     <Compile Include="Models\SimpleMessage.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\TaskbarItemMessage.cs" />
     <Compile Include="Models\TimerModel.cs" />
     <Compile Include="Models\TimerModelEventArgs.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -112,6 +119,10 @@
     <Page Include="Resources\icon.settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>

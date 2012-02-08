@@ -33,6 +33,7 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -49,20 +50,20 @@
             <ColumnDefinition Width="129*" />
         </Grid.ColumnDefinitions>
         <CheckBox Name="TopMost"
-                  Grid.RowSpan="2"
+                  Grid.Row="1"
                   Grid.Column="1"
                   Width="26"
                   Height="26"
-                  Margin="4,12,0,0"
+                  Margin="5,10,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   VerticalContentAlignment="Top"
                   IsChecked="{Binding TopMost}" />
-        <Label Content="Make countdown window top-most" />
-        <Label Grid.Row="1" Content="Duration" />
-        <Label Grid.Row="2" Content="Starting sound" />
-        <Label Grid.Row="3" Content="Completion sound" />
-        <Label Grid.Row="4" Content="Font" />
+        <Label Grid.Row="1" Content="Make countdown window top-most" />
+        <Label Grid.Row="2" Content="Duration" />
+        <Label Grid.Row="3" Content="Starting sound" />
+        <Label Grid.Row="4" Content="Completion sound" />
+        <Label Grid.Row="5" Content="Font" />
 
         <Button Name="Cancel"
                 Grid.Row="7"
@@ -81,15 +82,19 @@
                 VerticalAlignment="Center"
                 Command="{Binding OK}"
                 Content="OK" />
-        <ComboBox Name="comboBox2"
-                  Grid.Row="2"
-                  Grid.Column="1" />
+        <CheckBox Grid.Row="3"
+                  Grid.Column="1"
+                  Margin="5,10,5,0"
+                  Content="System Beep"
+                  IsChecked="{Binding PlayBeep}" />
 
-        <ComboBox Name="comboBox1"
-                  Grid.Row="3"
-                  Grid.Column="1" />
+        <CheckBox Grid.Row="4"
+                  Grid.Column="1"
+                  Margin="5,10,4,0"
+                  Content="System Exclamation"
+                  IsChecked="{Binding PlayExclamation}" />
         <controls:ShortTimeSpanControl Name="shortTimeSpanControl1"
-                                       Grid.Row="1"
+                                       Grid.Row="2"
                                        Grid.Column="1"
                                        Margin="-1,0,0,0"
                                        HorizontalAlignment="Left"
@@ -98,12 +103,13 @@
 
 
 
-        <ComboBox Grid.Row="4"
+        <ComboBox Grid.Row="5"
                   Grid.Column="1"
                   VerticalAlignment="Top"
                   ItemTemplate="{DynamicResource FontTemplate}"
                   SelectedValue="{Binding FontFamily}">
             <ComboBox.Resources>
+
                 <CollectionViewSource x:Key="myFonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}">
                     <CollectionViewSource.SortDescriptions>
                         <ComponentModel:SortDescription PropertyName="Source" />
@@ -123,18 +129,20 @@
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.Resources>
+
             <ComboBox.ItemsSource>
                 <Binding Source="{StaticResource myFonts}" />
             </ComboBox.ItemsSource>
+
         </ComboBox>
 
 
 
 
         <Label Name="label1"
-               Grid.Row="5"
+               Grid.Row="6"
                Content="Font size" />
-        <DockPanel Grid.Row="5" Grid.Column="1">
+        <DockPanel Grid.Row="6" Grid.Column="1">
             <Slider Name="MyFontSize"
                     MinWidth="120"
                     VerticalAlignment="Center"

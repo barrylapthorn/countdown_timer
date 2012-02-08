@@ -19,6 +19,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Btl.Models;
 using GalaSoft.MvvmLight.Messaging;
+using System.Windows;
 
 namespace Btl.ViewModels
 {
@@ -26,9 +27,29 @@ namespace Btl.ViewModels
     {
         private ViewModelBase _currentViewModel = null;
 
-        private readonly static TimerViewModel _timerViewModel = new TimerViewModel();
+        private readonly static TimerViewModel _timerViewModel;
+        private readonly static SettingsViewModel _settingsViewModel;
+        private readonly static AboutViewModel _aboutViewModel;
 
-        private readonly static SettingsViewModel _settingsViewModel = new SettingsViewModel();
+
+        /// <summary>
+        /// Use a static constructor as it is the easiest way to handle any
+        /// exceptions that might be thrown when creating the view models.
+        /// </summary>
+        static MainViewModel()
+        {
+            try
+            {
+                _timerViewModel = new TimerViewModel();
+                _settingsViewModel = new SettingsViewModel();
+                _aboutViewModel = new AboutViewModel();
+            }
+            catch (System.Exception exception)
+            {
+                MessageBox.Show(string.Format("An exception was thrown trying to construct the ViewModels:  {0}", exception.Message), 
+                    "Oh Dear!", MessageBoxButton.OK, MessageBoxImage.Stop);
+            }
+        }
 
 
         /// <summary>
@@ -64,6 +85,9 @@ namespace Btl.ViewModels
                 case SimpleMessage.MessageType.SwitchToSettingsView:
                     ExecuteViewSettingsCommand();
                     break;
+                case SimpleMessage.MessageType.SwitchToAboutView:
+                    ExecuteViewAboutCommand();
+                    break;
                 case SimpleMessage.MessageType.SettingsChanged:
                     //  ignored
                     break;
@@ -98,6 +122,11 @@ namespace Btl.ViewModels
         private void ExecuteViewSettingsCommand()
         {
             CurrentViewModel = _settingsViewModel;
+        }
+
+        private void ExecuteViewAboutCommand()
+        {
+            CurrentViewModel = _aboutViewModel;
         }
 
         private void ExecutePlayCommand()

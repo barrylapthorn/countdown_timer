@@ -18,6 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
+            <!--  Associates the correct views with the correct view models  -->
             <DataTemplate DataType="{x:Type vm:TimerViewModel}">
                 <views:TimerView />
             </DataTemplate>
@@ -26,6 +27,28 @@
                 <views:SettingsView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:AboutViewModel}">
+                <views:AboutView />
+            </DataTemplate>
+
+            <!--  An HTML link style button  -->
+            <Style x:Key="LinkButton" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline">
+                                <ContentPresenter />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="Blue" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Foreground" Value="Red" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>

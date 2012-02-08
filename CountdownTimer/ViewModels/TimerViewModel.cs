@@ -32,9 +32,11 @@ namespace Btl.ViewModels
     {
         #region Members
         private int _completedCount = 0;
+        private FontFamily _fontFamily = null;
         private double _fontSize = 0d;
         private Color _statusColor;
         readonly TimerModel _timer = new TimerModel();
+        readonly ISettingsModel _settings = SettingsModelFactory.GetSettings();
         #endregion
 
         #region Constructors
@@ -62,6 +64,7 @@ namespace Btl.ViewModels
 
         #region Commands
 
+        public ICommand About { get; private set; }
         public ICommand Settings { get; private set; }
         public ICommand StartTimer { get; private set; }
         public ICommand StopTimer { get; private set; }
@@ -73,6 +76,12 @@ namespace Btl.ViewModels
         {
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToSettingsView });
         }
+
+        private void AboutExecute()
+        {
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToAboutView });
+        }
+
 
         #endregion
 
@@ -120,6 +129,7 @@ namespace Btl.ViewModels
         private void BindCommands()
         {
             Settings = new RelayCommand(() => SettingsExecute());
+            About = new RelayCommand(() => AboutExecute());
             StartTimer = new RelayCommand(() => StartTimerExecute(), CanStartTimerExecute);
             StopTimer = new RelayCommand(() => StopTimerExecute(), CanStopTimerExecute);
             ResetTimer = new RelayCommand(() => ResetTimerExecute(), CanResetTimerExecute);
@@ -258,18 +268,18 @@ namespace Btl.ViewModels
             }
         }
 
-        public string ClockFontFamily
+        public FontFamily FontFamily
         {
             get
             {
-                return Properties.Settings.Default.FontFamily;
+                return _fontFamily;
             }
             set
             {
-                if (Properties.Settings.Default.FontFamily == value)
+                if (_fontFamily == value)
                     return;
-                Properties.Settings.Default.FontFamily = value;
-                RaisePropertyChanged("ClockFontFamily");
+                _fontFamily = value;
+                RaisePropertyChanged("FontFamily");
             }
         }
 
@@ -296,12 +306,13 @@ namespace Btl.ViewModels
         /// </summary>
         private void UpdateMembersFromSettings()
         {
-            SettingsModel settings = new SettingsModel();
+            _settings.Reload();
 
-            Duration = settings.Duration;
-            FontSize = settings.FontSize;
+            Duration = _settings.Duration;
+            FontSize = _settings.FontSize;
+            FontFamily = _settings.FontFamily;
 
-            UpdateTimerValues(settings.Duration);
+            UpdateTimerValues(_settings.Duration);
         }
 
         /// <summary>
@@ -401,7 +412,10 @@ namespace Btl.ViewModels
 
             CompletedCount++;
 
-            SystemSounds.Exclamation.Play();
+            if (_settings.PlayExclamation)
+            {
+                SystemSounds.Exclamation.Play();
+            }
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = 1.0 });
         }
@@ -417,7 +431,10 @@ namespace Btl.ViewModels
         {
             UpdateTimer(_timer.Remaining, e);
 
-            SystemSounds.Beep.Play();
+            if (_settings.PlayBeep)
+            {
+                SystemSounds.Beep.Play();
+            }
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal });
         }

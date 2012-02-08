@@ -19,13 +19,6 @@ using System.Windows.Threading;
 
 namespace Btl.Models
 {
-    public enum TimerState
-    {
-        Running,
-        Paused,
-        Complete
-    }
-
     internal class TimerModel : ITimerModel
     {
         #region Members

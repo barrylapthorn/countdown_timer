@@ -35,7 +35,7 @@ namespace Btl.ViewModels
         private FontFamily _fontFamily = null;
         private double _fontSize = 0d;
         private Color _statusColor;
-        readonly ITimerModel _timer = TimerModelFactory.GetTimer();
+        readonly ITimerModel _timer = TimerModelFactory.GetNewTimer();
         readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
         #endregion
 
@@ -72,26 +72,39 @@ namespace Btl.ViewModels
 
         #region Settings Command
 
+        /// <summary>
+        /// Executed when we want to switch to the settings view.
+        /// </summary>
         private void SettingsExecute()
         {
+            StopTimerExecute();
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToSettingsView });
         }
 
+        /// <summary>
+        /// Executed when we want to switch to the about view
+        /// </summary>
         private void AboutExecute()
         {
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToAboutView });
         }
-
-
+        
         #endregion
 
         #region Start Command
 
+        /// <summary>
+        /// Start the underlying timer
+        /// </summary>
         void StartTimerExecute()
         {
             _timer.Start();
         }
 
+        /// <summary>
+        /// can we start the underlying timer?
+        /// </summary>
+        /// <returns></returns>
         bool CanStartTimerExecute()
         {
             return !_timer.Complete && _timer.Status != TimerState.Running;
@@ -101,11 +114,18 @@ namespace Btl.ViewModels
 
         #region Stop Command
 
+        /// <summary>
+        /// Stop the underlying timer.
+        /// </summary>
         void StopTimerExecute()
         {
             _timer.Stop();
         }
 
+        /// <summary>
+        /// Can the timer be stopped?
+        /// </summary>
+        /// <returns></returns>
         bool CanStopTimerExecute()
         {
             return !_timer.Complete && _timer.Status == TimerState.Running;
@@ -115,24 +135,22 @@ namespace Btl.ViewModels
 
         #region Reset Command
 
+        /// <summary>
+        /// Reset the timer and update corresponding values.
+        /// </summary>
         void ResetTimerExecute()
         {
             _timer.Reset();
-            UpdateTimerValues(_timer.Remaining);
+            UpdateTimerValues();
         }
-
-        bool CanResetTimerExecute()
-        {
-            return true;
-        }
-
+        
         private void BindCommands()
         {
             Settings = new RelayCommand(() => SettingsExecute());
             About = new RelayCommand(() => AboutExecute());
             StartTimer = new RelayCommand(() => StartTimerExecute(), CanStartTimerExecute);
             StopTimer = new RelayCommand(() => StopTimerExecute(), CanStopTimerExecute);
-            ResetTimer = new RelayCommand(() => ResetTimerExecute(), CanResetTimerExecute);
+            ResetTimer = new RelayCommand(() => ResetTimerExecute());
         }
         #endregion
 
@@ -181,6 +199,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The background colour of the clock
+        /// </summary>
         public Color StatusColor
         {
             get
@@ -198,6 +219,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The timer duration.
+        /// </summary>
         public TimeSpan Duration
         {
             get
@@ -214,6 +238,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The number of times the countdown has completed successfully.
+        /// </summary>
         public int CompletedCount
         {
             get
@@ -229,6 +256,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The brush that we paint the clock with.
+        /// </summary>
         Brush statusBrush = new SolidColorBrush();
         public Brush StatusBrush
         {
@@ -247,27 +277,9 @@ namespace Btl.ViewModels
             }
         }
 
-        private TaskbarItemInfo taskbarItemInfo = null;
-
         /// <summary>
-        /// Get or set a reference to the TaskbarItemInfo of the application
-        /// so that the view model can update the progress bar in the taskbar
-        /// application icon.
+        /// The clock font family
         /// </summary>
-        public TaskbarItemInfo TaskbarItemInfo
-        {
-            get
-            {
-                return taskbarItemInfo;
-            }
-            set
-            {
-                if (taskbarItemInfo == value)
-                    return;
-                taskbarItemInfo = value;
-            }
-        }
-
         public FontFamily FontFamily
         {
             get
@@ -283,6 +295,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The clock font size.
+        /// </summary>
         public double FontSize
         {
             get
@@ -309,10 +324,11 @@ namespace Btl.ViewModels
             _settings.Reload();
 
             Duration = _settings.Duration;
+            
             FontSize = _settings.FontSize;
             FontFamily = _settings.FontFamily;
 
-            UpdateTimerValues(_settings.Duration);
+            UpdateTimerValues();
         }
 
         /// <summary>
@@ -341,13 +357,14 @@ namespace Btl.ViewModels
                     break;
             }
         }
+
         /// <summary>
         /// Update the timer view model properties based on the time span passed in.
         /// </summary>
         /// <param name="t"></param>
         private void UpdateTimer(TimeSpan t, TimerModelEventArgs e)
         {
-            UpdateTimerValues(t);
+            UpdateTimerValues();
             UpdateTimerStatusColor(e);
         }
 
@@ -384,8 +401,9 @@ namespace Btl.ViewModels
         /// Update the timer view model properties based on the time span passed in.
         /// </summary>
         /// <param name="t"></param>
-        private void UpdateTimerValues(TimeSpan t)
+        private void UpdateTimerValues()
         {
+            TimeSpan t = _timer.Remaining;
             TimerValue = string.Format("{0}:{1}:{2}", t.Hours.ToString("D2"),
                 t.Minutes.ToString("D2"), t.Seconds.ToString("D2"));
 
@@ -406,6 +424,12 @@ namespace Btl.ViewModels
         #endregion
 
         #region Event handlers
+
+        /// <summary>
+        /// Fires where the timer completes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCompleted(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);
@@ -420,6 +444,12 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = 1.0 });
         }
 
+        /// <summary>
+        /// Fires when the timer ticks.  Ticks out to be of the order of 
+        /// tenths of a second or so to prevent excessive spamming of this method.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTick(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);
@@ -428,6 +458,11 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new SimpleMessage(SimpleMessage.MessageType.TimerTick, TimerValue));
         }
 
+        /// <summary>
+        /// Fires when the timer starts.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OnStarted(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);
@@ -440,6 +475,11 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal });
         }
 
+        /// <summary>
+        /// Fires when the timer stops.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnStopped(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);
@@ -447,6 +487,11 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Paused });
         }
 
+        /// <summary>
+        /// Fires when the timer resets.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnReset(object sender, TimerModelEventArgs e)
         {
             UpdateTimer(_timer.Remaining, e);

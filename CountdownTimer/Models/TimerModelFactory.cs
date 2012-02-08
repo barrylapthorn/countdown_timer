@@ -14,7 +14,6 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-
 namespace Btl.Models
 {
     public class TimerModelFactory

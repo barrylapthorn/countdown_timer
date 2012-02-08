@@ -17,6 +17,11 @@
 
 namespace Btl.Models
 {
+    /// <summary>
+    /// A simple message class that we use to pass messages around the application
+    /// via the Messenger singleton, but keep the parts sufficiently decoupled
+    /// for the MVVM style of work.
+    /// </summary>
     public class SimpleMessage
     {
         public SimpleMessage() : this(MessageType.SwitchToTimerView)

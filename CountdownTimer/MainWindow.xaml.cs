@@ -21,15 +21,16 @@ using GalaSoft.MvvmLight.Messaging;
 namespace Btl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Most of the cruft in this class is to manage the taskbar item preview
+    /// and the window title.
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
 
+            //  Reposition the window to where it last was.
             LoadWindowPosition();
 
             //  Consume any TaskbarItemMessages that are being dispatched around
@@ -37,11 +38,11 @@ namespace Btl
             Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeTaskbarItemMessage);
             Messenger.Default.Register<SimpleMessage>(this, ConsumeSimpleMessage);
 
-            WindowTitle = this.Title;
+            WindowTitle = Title;
         }
 
         /// <summary>
-        /// Update the TaskbarItemInfo values with whatever is specifed in the
+        /// Update the TaskbarItemInfo values with whatever is specified in the
         /// message.
         /// </summary>
         /// <param name="message"></param>
@@ -50,34 +51,42 @@ namespace Btl
             if (message == null)
                 return;
 
-            this.TaskbarItemInfo.ProgressState = message.State;
+            TaskbarItemInfo.ProgressState = message.State;
 
+            //  if the taskbar item message carried a (percentage) value,
+            //  update the taskbar progressvalue with it.
             if (message.HasValue)
-                this.TaskbarItemInfo.ProgressValue = message.Value;
-        }
-
-        private void OnSettingsChanged()
-        {
-            var settings = SettingsModelFactory.GetNewSettings();
-            this.Topmost = settings.TopMost;
+                TaskbarItemInfo.ProgressValue = message.Value;
         }
 
         /// <summary>
-        /// Only respond to settings that directly affect this main window.
+        /// If the user has changed the settings, the only thing that affects
+        /// the MainWindow state is its TopMost value.
+        /// </summary>
+        private void OnSettingsChanged()
+        {
+            var settings = SettingsModelFactory.GetNewSettings();
+            Topmost = settings.TopMost;
+        }
+
+        /// <summary>
+        /// Only respond to settings that directly affect this main window,
+        /// and do not handle the rest.
         /// </summary>
         /// <param name="message"></param>
         private void ConsumeSimpleMessage(SimpleMessage message)
         {
             switch (message.Type)
             {
+                case SimpleMessage.MessageType.TimerTick:
+                    //  this happens the most so put it first
+                    Title = message.Message;
+                    break;
                 case SimpleMessage.MessageType.SettingsChanged:
                     OnSettingsChanged();
                     break;
                 case SimpleMessage.MessageType.TimerStop:
                     Title = WindowTitle;
-                    break;
-                case SimpleMessage.MessageType.TimerTick:
-                    Title = message.Message;
                     break;
                 case SimpleMessage.MessageType.TimerReset:
                     //  restore window title if we reset.
@@ -87,12 +96,13 @@ namespace Btl
         }
 
         /// <summary>
-        /// Window closing event.  
+        /// Window closing event.  Save the window position.  
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //  Persist the window position.
             SaveWindowPosition();
         }
 
@@ -129,6 +139,9 @@ namespace Btl
             this.Topmost = settings.TopMost;
         }
 
+        /// <summary>
+        /// Store the window title away as we change it later.
+        /// </summary>
         private string WindowTitle { get; set; }
 
     }

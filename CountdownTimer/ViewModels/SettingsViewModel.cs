@@ -28,7 +28,7 @@ namespace Btl.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        readonly ISettingsModel _settings = SettingsModelFactory.GetSettings();
+        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
 
         public SettingsViewModel()
         {

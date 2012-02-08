@@ -58,7 +58,7 @@ namespace Btl
 
         private void OnSettingsChanged()
         {
-            var settings = SettingsModelFactory.GetSettings();
+            var settings = SettingsModelFactory.GetNewSettings();
             this.Topmost = settings.TopMost;
         }
 
@@ -101,7 +101,7 @@ namespace Btl
         /// </summary>
         private void SaveWindowPosition()
         {
-            var settings = SettingsModelFactory.GetSettings();
+            var settings = SettingsModelFactory.GetNewSettings();
 
             settings.WindowTop = this.Top;
             settings.WindowLeft = this.Left;
@@ -116,7 +116,7 @@ namespace Btl
         /// </summary>
         private void LoadWindowPosition()
         {
-            var settings = SettingsModelFactory.GetSettings();
+            var settings = SettingsModelFactory.GetNewSettings();
 
             if (settings.WindowWidth > 0)
             {

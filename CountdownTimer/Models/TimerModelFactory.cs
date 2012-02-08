@@ -15,24 +15,17 @@
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
 
-using System.Windows.Shell;
-
 namespace Btl.Models
 {
-    /// <summary>
-    /// Trivial container for a message for the taskbaritem progress info.
-    /// </summary>
-    public class TaskbarItemMessage
+    public class TimerModelFactory
     {
-        public TaskbarItemMessage()
+        /// <summary>
+        /// Get a new instance of a TimerModel
+        /// </summary>
+        /// <returns></returns>
+        public static ITimerModel GetNewTimer()
         {
-            State = TaskbarItemProgressState.None;
-            Value = -1.0;
+            return new TimerModel();
         }
-        public TaskbarItemProgressState State { get; set; }
-
-        public double Value { get; set; }
-
-        public bool HasValue { get { return ! (Value < 0.0); } }
     }
 }

@@ -35,8 +35,8 @@ namespace Btl.ViewModels
         private FontFamily _fontFamily = null;
         private double _fontSize = 0d;
         private Color _statusColor;
-        readonly TimerModel _timer = new TimerModel();
-        readonly ISettingsModel _settings = SettingsModelFactory.GetSettings();
+        readonly ITimerModel _timer = TimerModelFactory.GetTimer();
+        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
         #endregion
 
         #region Constructors
@@ -94,7 +94,7 @@ namespace Btl.ViewModels
 
         bool CanStartTimerExecute()
         {
-            return !_timer.Complete && _timer.Status != TimerModel.State.Running;
+            return !_timer.Complete && _timer.Status != TimerState.Running;
         }
 
         #endregion
@@ -108,7 +108,7 @@ namespace Btl.ViewModels
 
         bool CanStopTimerExecute()
         {
-            return !_timer.Complete && _timer.Status == TimerModel.State.Running;
+            return !_timer.Complete && _timer.Status == TimerState.Running;
         }
 
         #endregion

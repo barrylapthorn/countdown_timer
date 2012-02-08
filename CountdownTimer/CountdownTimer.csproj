@@ -72,12 +72,14 @@
     </ApplicationDefinition>
     <Compile Include="Models\EnumExtension.cs" />
     <Compile Include="Models\ISettingsModel.cs" />
+    <Compile Include="Models\ITimerModel.cs" />
     <Compile Include="Models\SettingsModelFactory.cs" />
     <Compile Include="Models\SimpleMessage.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\TaskbarItemMessage.cs" />
     <Compile Include="Models\TimerModel.cs" />
     <Compile Include="Models\TimerModelEventArgs.cs" />
+    <Compile Include="Models\TimerModelFactory.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />

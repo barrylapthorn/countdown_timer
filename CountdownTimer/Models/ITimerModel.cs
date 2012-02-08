@@ -14,63 +14,77 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
+
 using System;
 
 namespace Btl.Models
 {
-    internal interface ISettingsModel
+    public interface ITimerModel
     {
         /// <summary>
-        /// The font-family of the clock
+        /// Return the timer interval that we're using.
         /// </summary>
-        System.Windows.Media.FontFamily FontFamily { get; set; }
+        TimeSpan Interval { get; }
+
         /// <summary>
-        /// Returns whether the settings have been modified in some way.
+        /// Return the time remaining.
         /// </summary>
-        bool Modified { get; }
+        TimeSpan Remaining { get; }
+
         /// <summary>
-        /// The (last) selected duration of our timer.
+        /// Has the time completed?
+        /// </summary>
+        bool Complete { get; }
+
+        /// <summary>
+        /// Set or get the duration.
         /// </summary>
         TimeSpan Duration { get; set; }
+
+
         /// <summary>
-        /// Play the system beep on start
+        /// The state of the model
         /// </summary>
-        bool PlayBeep { get; set; }
+        TimerState Status { get; set; }
+
         /// <summary>
-        /// Play the system exclamation on stop
+        /// Start the countdown.
         /// </summary>
-        bool PlayExclamation { get; set; }
+        void Start();
+
         /// <summary>
-        /// is the window top-most?
+        /// Stop the countdown.
         /// </summary>
-        bool TopMost { get; set; }
+        void Stop();
+
         /// <summary>
-        /// the font size of the clock
+        /// Stop the current countdown and reset.
         /// </summary>
-        double FontSize { get; set; }
+        void Reset();
+
         /// <summary>
-        /// The main window left position.
+        /// Tick event
         /// </summary>
-        double WindowLeft { get; set; }
+        event EventHandler<TimerModelEventArgs> Tick;
+
         /// <summary>
-        /// The main window height.
+        /// Timer started event
         /// </summary>
-        double WindowHeight { get; set; }
+        event EventHandler<TimerModelEventArgs> Started;
+
         /// <summary>
-        /// The main window top position.
+        /// Timer stopped event
         /// </summary>
-        double WindowTop { get; set; }
+        event EventHandler<TimerModelEventArgs> Stopped;
+
         /// <summary>
-        /// The Main window width
+        /// Timer reset event
         /// </summary>
-        double WindowWidth { get; set; }
+        event EventHandler<TimerModelEventArgs> TimerReset;
+
         /// <summary>
-        /// Reload the settings from the application properties if necessary.
+        /// Timer completed event
         /// </summary>
-        void Reload();
-        /// <summary>
-        /// Save the settings if they have been modified, otherwise do nothing.
-        /// </summary>
-        void Save();
+        event EventHandler<TimerModelEventArgs> Completed;
     }
 }

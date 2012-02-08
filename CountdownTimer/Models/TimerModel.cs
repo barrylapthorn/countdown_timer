@@ -19,7 +19,14 @@ using System.Windows.Threading;
 
 namespace Btl.Models
 {
-    internal class TimerModel
+    public enum TimerState
+    {
+        Running,
+        Paused,
+        Complete
+    }
+
+    internal class TimerModel : ITimerModel
     {
         #region Members
         /// <summary>
@@ -27,12 +34,7 @@ namespace Btl.Models
         /// </summary>
         readonly DispatcherTimer timer = new DispatcherTimer();
 
-        public enum State
-        {
-            Running,
-            Paused,
-            Complete
-        }
+
         #endregion
 
         #region Constructors
@@ -104,7 +106,7 @@ namespace Btl.Models
             }
         }
 
-        public State Status { get; set; }
+        public TimerState Status { get; set; }
         #endregion
 
         #region Methods
@@ -170,7 +172,7 @@ namespace Btl.Models
         /// </summary>
         private void OnReset()
         {
-            Status = State.Paused;
+            Status = TimerState.Paused;
 
             if (TimerReset != null)
             {
@@ -185,7 +187,7 @@ namespace Btl.Models
         /// </summary>
         private void OnCompleted()
         {
-            Status = State.Complete;
+            Status = TimerState.Complete;
 
             if (Completed != null)
             {
@@ -200,7 +202,7 @@ namespace Btl.Models
         /// </summary>
         private void OnStopped()
         {
-            Status = State.Paused;
+            Status = TimerState.Paused;
 
             if (Stopped != null)
             {
@@ -215,7 +217,7 @@ namespace Btl.Models
         /// </summary>
         private void OnStarted()
         {
-            Status = State.Running;
+            Status = TimerState.Running;
 
             if (Started != null)
             {
@@ -230,7 +232,7 @@ namespace Btl.Models
         /// </summary>
         private void OnTick()
         {
-            Status = State.Running;
+            Status = TimerState.Running;
 
             if (Tick != null)
             {

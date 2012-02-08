@@ -25,7 +25,7 @@ namespace Btl.Models
     /// </summary>
     class SettingsModelFactory
     {
-        public static ISettingsModel GetSettings()
+        public static ISettingsModel GetNewSettings()
         {
             return new SettingsModel();
         }

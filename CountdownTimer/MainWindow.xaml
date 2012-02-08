@@ -11,7 +11,7 @@
         d:DesignWidth="525"
         DataContext="{Binding Main,
                               Source={StaticResource Locator}}"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
     <Window.Resources />

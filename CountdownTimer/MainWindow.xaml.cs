@@ -36,8 +36,10 @@ namespace Btl
             //  the mvvm framework.
             Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeTaskbarItemMessage);
             Messenger.Default.Register<SimpleMessage>(this, ConsumeSimpleMessage);
+
+            WindowTitle = this.Title;
         }
-        
+
         /// <summary>
         /// Update the TaskbarItemInfo values with whatever is specifed in the
         /// message.
@@ -54,16 +56,33 @@ namespace Btl
                 this.TaskbarItemInfo.ProgressValue = message.Value;
         }
 
+        private void OnSettingsChanged()
+        {
+            var settings = SettingsModelFactory.GetSettings();
+            this.Topmost = settings.TopMost;
+        }
+
         /// <summary>
         /// Only respond to settings that directly affect this main window.
         /// </summary>
         /// <param name="message"></param>
         private void ConsumeSimpleMessage(SimpleMessage message)
         {
-            if (message.Type == SimpleMessage.MessageType.SettingsChanged)
+            switch (message.Type)
             {
-                var settings = SettingsModelFactory.GetSettings();
-                this.Topmost = settings.TopMost;
+                case SimpleMessage.MessageType.SettingsChanged:
+                    OnSettingsChanged();
+                    break;
+                case SimpleMessage.MessageType.TimerStop:
+                    Title = WindowTitle;
+                    break;
+                case SimpleMessage.MessageType.TimerTick:
+                    Title = message.Message;
+                    break;
+                case SimpleMessage.MessageType.TimerReset:
+                    //  restore window title if we reset.
+                    Title = WindowTitle;
+                    break;
             }
         }
 
@@ -110,6 +129,7 @@ namespace Btl
             this.Topmost = settings.TopMost;
         }
 
+        private string WindowTitle { get; set; }
 
     }
 }

@@ -19,9 +19,19 @@ namespace Btl.Models
 {
     public class SimpleMessage
     {
-        public SimpleMessage()
+        public SimpleMessage() : this(MessageType.SwitchToTimerView)
         {
-            Type = MessageType.SwitchToTimerView;
+        }
+
+        public SimpleMessage(MessageType type)
+            : this(type, string.Empty)
+        {
+        }
+
+        public SimpleMessage(MessageType type, string message)
+        {
+            Type = type;
+            Message = message;
         }
 
         public enum MessageType
@@ -30,11 +40,15 @@ namespace Btl.Models
             SwitchToSettingsView,
             SwitchToAboutView,
             SettingsChanged,
-            StopTimer,
-            StartTimer
+            TimerStop,
+            TimerStart,
+            TimerTick,
+            TimerReset
         }
 
         public MessageType Type { get; set; }
+
+        public string Message { get; set; }
 
     }
 }

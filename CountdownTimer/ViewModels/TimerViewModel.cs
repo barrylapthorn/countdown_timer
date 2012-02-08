@@ -333,10 +333,10 @@ namespace Btl.ViewModels
                     StopTimerExecute();
                     UpdateMembersFromSettings();
                     break;
-                case SimpleMessage.MessageType.StopTimer:
+                case SimpleMessage.MessageType.TimerStop:
                     StopTimerExecute();
                     break;
-                case SimpleMessage.MessageType.StartTimer:
+                case SimpleMessage.MessageType.TimerStart:
                     StartTimerExecute();
                     break;
             }
@@ -425,6 +425,7 @@ namespace Btl.ViewModels
             UpdateTimer(_timer.Remaining, e);
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = PercentElapsed / 100.0 });
+            Messenger.Default.Send(new SimpleMessage(SimpleMessage.MessageType.TimerTick, TimerValue));
         }
 
         void OnStarted(object sender, TimerModelEventArgs e)
@@ -451,6 +452,7 @@ namespace Btl.ViewModels
             UpdateTimer(_timer.Remaining, e);
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.None, Value = 0.0 });
+            Messenger.Default.Send(new SimpleMessage(SimpleMessage.MessageType.TimerReset));
         }
         #endregion
 

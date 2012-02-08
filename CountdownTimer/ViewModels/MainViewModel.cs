@@ -131,12 +131,12 @@ namespace Btl.ViewModels
 
         private void ExecutePlayCommand()
         {
-            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.StartTimer });
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.TimerStart });
         }
 
         private void ExecutePauseCommand()
         {
-            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.StopTimer });
+            Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.TimerStop });
         }
 
 

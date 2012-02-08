@@ -71,7 +71,7 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 Command="{Binding About}"
-                Content="About"
+                Content="?"
                 Style="{StaticResource LinkButton}" />
     </Grid>
 </UserControl>

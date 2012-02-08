@@ -32,7 +32,7 @@ namespace Btl.ViewModels
     public class AboutViewModel : ViewModelBase
     {
         private readonly string _homepage = "http://www.lapthorn.net";
-        private object String = null;
+
         public AboutViewModel()
         {
             OK = new RelayCommand(() => OkExecute());

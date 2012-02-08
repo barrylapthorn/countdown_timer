@@ -73,7 +73,7 @@ namespace Btl.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
         public string FontFamily {
             get {
                 return ((string)(this["FontFamily"]));

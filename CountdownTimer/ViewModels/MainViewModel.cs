@@ -20,12 +20,18 @@ using GalaSoft.MvvmLight.Command;
 using Btl.Models;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using System.Windows.Shell;
 
 namespace Btl.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private string _WindowTitle;
+        private double _ProgressValue;
+        private TaskbarItemProgressState _ProgressState;
+        private bool _TopMost;
         private ViewModelBase _currentViewModel = null;
+        private string _originalWindowTitle = "Countdown Timer";
 
         private readonly static TimerViewModel _timerViewModel;
         private readonly static SettingsViewModel _settingsViewModel;
@@ -57,28 +63,94 @@ namespace Btl.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-
+            //  Set the start-up view model.
             CurrentViewModel = _timerViewModel;
+
+            //  Create the commands
             TimerViewCommand = new RelayCommand(() => ExecuteViewTimerCommand());
             SettingsViewCommand = new RelayCommand(() => ExecuteViewSettingsCommand());
             PlayCommand = new RelayCommand(() => ExecutePlayCommand());
             PauseCommand = new RelayCommand(() => ExecutePauseCommand());
 
+            //  Set the window title.
+            WindowTitle = _originalWindowTitle;
+
+            //  Update anything else that is user-settings related.
+            OnSettingsChanged();
+
+            //  Lastly, listen for messages from other view models.
             Messenger.Default.Register<SimpleMessage>(this, ConsumeMessage);
+            Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeTaskbarItemMessage);
         }
 
-        void ConsumeMessage(SimpleMessage message)
+        /// <summary>
+        /// Update the TaskbarItemInfo values with whatever is specified in the
+        /// message.
+        /// </summary>
+        /// <param name="message"></param>
+        void ConsumeTaskbarItemMessage(TaskbarItemMessage message)
+        {
+            if (message == null)
+                return;
+
+            ProgressState = message.State;
+
+            //  if the taskbar item message carried a (percentage) value,
+            //  update the taskbar progress value with it.
+            if (message.HasValue)
+                ProgressValue = message.Value;
+        }
+
+        /// <summary>
+        /// The progress state of the timer (aimed at the taskbar).
+        /// </summary>
+        public TaskbarItemProgressState ProgressState
+        {
+            get
+            {
+                return _ProgressState;
+            }
+            set
+            {
+                if (_ProgressState == value)
+                    return;
+                _ProgressState = value;
+
+                RaisePropertyChanged("ProgressState");
+            }
+        }
+
+        /// <summary>
+        /// The progress value of the timer.
+        /// </summary>
+        public double ProgressValue
+        {
+            get
+            {
+                return _ProgressValue;
+            }
+            set
+            {
+                if (_ProgressValue == value)
+                    return;
+                _ProgressValue = value;
+
+                RaisePropertyChanged("ProgressValue");
+            }
+        }
+
+        /// <summary>
+        /// Consume the SimpleMessage class and perform actions based on its content.
+        /// </summary>
+        /// <param name="message"></param>
+        private void ConsumeMessage(SimpleMessage message)
         {
             switch (message.Type)
             {
+                case SimpleMessage.MessageType.TimerTick:
+                    //  this happens the most so put it first
+                    WindowTitle = message.Message;
+                    break;
                 case SimpleMessage.MessageType.SwitchToTimerView:
                     ExecuteViewTimerCommand();
                     break;
@@ -89,9 +161,22 @@ namespace Btl.ViewModels
                     ExecuteViewAboutCommand();
                     break;
                 case SimpleMessage.MessageType.SettingsChanged:
-                    //  ignored
+                    OnSettingsChanged();
+                    break;
+                case SimpleMessage.MessageType.TimerStop:
+                    WindowTitle = _originalWindowTitle;
+                    break;
+                case SimpleMessage.MessageType.TimerReset:
+                    //  restore window title if we reset.
+                    WindowTitle = _originalWindowTitle;
                     break;
             }  
+        }
+
+        private void OnSettingsChanged()
+        {
+            var settings = SettingsModelFactory.GetNewSettings();
+            TopMost = settings.TopMost;
         }
 
         public ViewModelBase CurrentViewModel
@@ -139,6 +224,34 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.TimerStop });
         }
 
+        public bool TopMost
+        {
+            get
+            {
+                return _TopMost;
+            }
+            set
+            {
+                if (_TopMost == value)
+                    return;
+                _TopMost = value;
+                RaisePropertyChanged("TopMost");
+            }
+        }
 
+        public string WindowTitle
+        {
+            get
+            {
+                return _WindowTitle;
+            }
+            set
+            {
+                if (_WindowTitle == value)
+                    return;
+                _WindowTitle = value;
+                RaisePropertyChanged("WindowTitle");
+            }
+        }
     }
 }

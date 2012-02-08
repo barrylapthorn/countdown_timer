@@ -32,68 +32,8 @@ namespace Btl
 
             //  Reposition the window to where it last was.
             LoadWindowPosition();
-
-            //  Consume any TaskbarItemMessages that are being dispatched around
-            //  the mvvm framework.
-            Messenger.Default.Register<TaskbarItemMessage>(this, ConsumeTaskbarItemMessage);
-            Messenger.Default.Register<SimpleMessage>(this, ConsumeSimpleMessage);
-
-            WindowTitle = Title;
         }
 
-        /// <summary>
-        /// Update the TaskbarItemInfo values with whatever is specified in the
-        /// message.
-        /// </summary>
-        /// <param name="message"></param>
-        void ConsumeTaskbarItemMessage(TaskbarItemMessage message)
-        {
-            if (message == null)
-                return;
-
-            TaskbarItemInfo.ProgressState = message.State;
-
-            //  if the taskbar item message carried a (percentage) value,
-            //  update the taskbar progressvalue with it.
-            if (message.HasValue)
-                TaskbarItemInfo.ProgressValue = message.Value;
-        }
-
-        /// <summary>
-        /// If the user has changed the settings, the only thing that affects
-        /// the MainWindow state is its TopMost value.
-        /// </summary>
-        private void OnSettingsChanged()
-        {
-            var settings = SettingsModelFactory.GetNewSettings();
-            Topmost = settings.TopMost;
-        }
-
-        /// <summary>
-        /// Only respond to settings that directly affect this main window,
-        /// and do not handle the rest.
-        /// </summary>
-        /// <param name="message"></param>
-        private void ConsumeSimpleMessage(SimpleMessage message)
-        {
-            switch (message.Type)
-            {
-                case SimpleMessage.MessageType.TimerTick:
-                    //  this happens the most so put it first
-                    Title = message.Message;
-                    break;
-                case SimpleMessage.MessageType.SettingsChanged:
-                    OnSettingsChanged();
-                    break;
-                case SimpleMessage.MessageType.TimerStop:
-                    Title = WindowTitle;
-                    break;
-                case SimpleMessage.MessageType.TimerReset:
-                    //  restore window title if we reset.
-                    Title = WindowTitle;
-                    break;
-            }
-        }
 
         /// <summary>
         /// Window closing event.  Save the window position.  
@@ -135,14 +75,6 @@ namespace Btl
                 this.Height = settings.WindowHeight;
                 this.Width = settings.WindowWidth;
             }
-
-            this.Topmost = settings.TopMost;
         }
-
-        /// <summary>
-        /// Store the window title away as we change it later.
-        /// </summary>
-        private string WindowTitle { get; set; }
-
     }
 }

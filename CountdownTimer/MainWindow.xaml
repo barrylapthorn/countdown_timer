@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:Btl.Views"
         xmlns:vm="clr-namespace:Btl.ViewModels"
-        Title="Countdown Timer"
         Closing="Window_Closing"
         d:DesignHeight="350"
         d:DesignWidth="525"
@@ -14,9 +13,14 @@
         ResizeMode="CanMinimize"
         SizeToContent="WidthAndHeight"
         mc:Ignorable="d">
-    <Window.Resources />
+    <Window.Title>
+        <Binding Path="WindowTitle" />
+    </Window.Title>
+    <Window.Topmost>
+        <Binding Path="TopMost" />
+    </Window.Topmost>
     <Window.TaskbarItemInfo>
-        <TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="{Binding ProgressState}" ProgressValue="{Binding ProgressValue}">
             <TaskbarItemInfo.ThumbButtonInfos>
                 <ThumbButtonInfoCollection>
                     <ThumbButtonInfo Command="{Binding PlayCommand}"
@@ -30,8 +34,10 @@
                 </ThumbButtonInfoCollection>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
-
     </Window.TaskbarItemInfo>
+
+    <!--  Now the actual window content  -->
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -42,6 +48,7 @@
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Top"
                         Content="{Binding CurrentViewModel}" />
-
     </Grid>
+
+    <!--  And that's it.  One contentcontrol in a grid  -->
 </Window>

@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="Resources/icon.settings.xaml" />
                 <ResourceDictionary Source="Resources/icon.rewind.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!--  This locates our view models for us  -->
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
             <!--  Associates the correct views with the correct view models  -->

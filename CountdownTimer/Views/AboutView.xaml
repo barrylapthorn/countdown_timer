@@ -61,7 +61,7 @@
                 Style="{StaticResource LinkButton}" />
         <TextBlock Grid.Row="3"
                    Grid.Column="1"
-                   MinHeight="23"
+                   MinHeight="12"
                    HorizontalAlignment="Center"
                    Text="{Binding Version}" />
         <Button Name="OK"
@@ -74,7 +74,8 @@
                 Command="{Binding OK}"
                 Content="OK" />
         <Image Name="image1"
-               Grid.Row="1"
+               Grid.Row="0"
+               Grid.RowSpan="2"
                Width="96"
                Height="96"
                Source="/CountdownTimer;component/Resources/CountdownTimer.png" />

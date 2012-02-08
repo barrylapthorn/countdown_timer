@@ -15,7 +15,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="FontFamily" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Segoe UI</Value>
+      <Value Profile="(Default)">Arial</Value>
     </Setting>
     <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

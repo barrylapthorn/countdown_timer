@@ -59,7 +59,7 @@
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="8">
+                   FontSize="9">
             <TextBlock.Text>
                 <Binding Path="CompletedCount">
                     <Binding.StringFormat>Completed: {0}</Binding.StringFormat>
@@ -67,9 +67,9 @@
             </TextBlock.Text>
         </TextBlock>
 
-        <Button Grid.Row="5"
+        <Button Grid.Row="4"
                 Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 Command="{Binding About}"
                 Content="?"
                 Style="{StaticResource LinkButton}" />

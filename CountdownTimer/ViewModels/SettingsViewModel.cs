@@ -26,6 +26,9 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace Btl.ViewModels
 {
+    /// <summary>
+    /// The view-model for the Settings view.
+    /// </summary>
     public class SettingsViewModel : ViewModelBase
     {
         readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
@@ -37,6 +40,9 @@ namespace Btl.ViewModels
         }
 
         #region Properties
+        /// <summary>
+        /// The timer duration
+        /// </summary>
         public TimeSpan Duration
         {
             get
@@ -52,6 +58,28 @@ namespace Btl.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Is this the first time the application has been run?
+        /// </summary>
+        public bool FirstRun
+        {
+            get
+            {
+                return _settings.FirstRun;
+            }
+            set
+            {
+                if (_settings.FirstRun == value)
+                    return;
+                _settings.FirstRun = value;
+                RaisePropertyChanged("FirstRun");
+            }
+        }
+
+        /// <summary>
+        /// Do we want our window to be top-most?
+        /// </summary>
         public bool TopMost
         {
             get
@@ -67,6 +95,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The clock font size.
+        /// </summary>
         public double FontSize
         {
             get
@@ -82,6 +113,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// The clock font family
+        /// </summary>
         public FontFamily FontFamily
         {
             get
@@ -97,6 +131,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// Play a beep when starting.
+        /// </summary>
         public bool PlayBeep
         {
             get
@@ -112,6 +149,9 @@ namespace Btl.ViewModels
             }
         }
 
+        /// <summary>
+        /// Play an exclamation when complete.
+        /// </summary>
         public bool PlayExclamation
         {
             get
@@ -133,7 +173,7 @@ namespace Btl.ViewModels
         public ICommand OK { get; private set; }
         public ICommand Cancel { get; private set; }
 
-        void OkExecute()
+        private void OkExecute()
         {
             _settings.Save();
 
@@ -141,12 +181,12 @@ namespace Btl.ViewModels
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
         }
 
-        bool CanOkExecute()
+        private bool CanOkExecute()
         {
             return _settings.Modified;
         }
 
-        void CancelExecute()
+        private void CancelExecute()
         {
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
         }

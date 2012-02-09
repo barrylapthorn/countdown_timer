@@ -39,24 +39,20 @@ namespace Btl.Models
             //  load the settings into this class.
             LoadSettings();
 
-            //  reset modified state to false
-            Modified = false;
         }
         #endregion
 
         #region Private members
 
+        private bool _FirstRun;
         private bool _PlayExclamation;
-        private bool _PlayBeep;
+        private bool _PlayBeep; 
+        private bool _topMost;
+
         private TimeSpan _duration;
 
-        private double _fontSize = 0d;
-        private double _windowTop;
-        private double _windowLeft;
-        private double _windowHeight;
-        private double _windowWidth;
+        private double _fontSize = 10;
 
-        private bool _topMost;
 
         #endregion
 
@@ -64,7 +60,7 @@ namespace Btl.Models
 
         private FontFamily _FontFamily;
 
-        public System.Windows.Media.FontFamily FontFamily
+        public FontFamily FontFamily
         {
             get
             {
@@ -102,6 +98,9 @@ namespace Btl.Models
             }
         }
 
+        /// <summary>
+        /// Whether or not to play a beep (when the timer starts).
+        /// </summary>
         public bool PlayBeep
         {
             get
@@ -117,6 +116,9 @@ namespace Btl.Models
             }
         }
 
+        /// <summary>
+        /// Whether or not to play an exclamation when the timer ends.
+        /// </summary>
         public bool PlayExclamation
         {
             get
@@ -128,6 +130,21 @@ namespace Btl.Models
                 if (_PlayExclamation == value)
                     return;
                 _PlayExclamation = value;
+                Modified = true;
+            }
+        }
+
+        public bool FirstRun
+        {
+            get
+            {
+                return _FirstRun;
+            }
+            set
+            {
+                if (_FirstRun == value)
+                    return;
+                _FirstRun = value;
                 Modified = true;
             }
         }
@@ -163,82 +180,7 @@ namespace Btl.Models
                 Modified = true;
             }
         }
-        /// <summary>
-        /// The main window left position.
-        /// </summary>
-        public double WindowLeft
-        {
-            get
-            {
-                return _windowLeft;
-            }
-            set
-            {
-                if (_windowLeft == value)
-                    return;
-
-                _windowLeft = value;
-                Modified = true;
-            }
-        }
-
-        /// <summary>
-        /// The main window height.
-        /// </summary>
-        public double WindowHeight
-        {
-            get
-            {
-                return _windowHeight;
-            }
-            set
-            {
-                if (_windowHeight == value)
-                    return;
-
-                _windowHeight = value;
-                Modified = true;
-            }
-        }
-
-        /// <summary>
-        /// The main window top position.
-        /// </summary>
-        public double WindowTop
-        {
-            get
-            {
-                return _windowTop;
-            }
-            set
-            {
-                if (_windowTop == value)
-                    return;
-
-                _windowTop = value;
-                Modified = true;
-            }
-        }
-
-        /// <summary>
-        /// The Main window width
-        /// </summary>
-        public double WindowWidth
-        {
-            get
-            {
-                return _windowWidth;
-            }
-            set
-            {
-                if (_windowWidth == value)
-                    return;
-
-                _windowWidth = value;
-                Modified = true;
-            }
-        }
-        
+       
         #endregion
 
         #region Methods
@@ -252,15 +194,12 @@ namespace Btl.Models
             Properties.Settings.Default.Duration = Duration;
 
             //  save the window properties.
-            Properties.Settings.Default.Top = WindowTop;
-            Properties.Settings.Default.Left = WindowLeft;
-            Properties.Settings.Default.Height = WindowHeight;
-            Properties.Settings.Default.Width = WindowWidth;
             Properties.Settings.Default.TopMost = TopMost;
             Properties.Settings.Default.FontSize = FontSize;
             Properties.Settings.Default.FontFamily = FontFamily.Source;
             Properties.Settings.Default.PlayExclamation = PlayExclamation;
             Properties.Settings.Default.PlayBeep = PlayBeep;
+            Properties.Settings.Default.FirstRun = FirstRun;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
@@ -276,15 +215,12 @@ namespace Btl.Models
         {
             //  Now 'load' existing properties.
             Duration = Properties.Settings.Default.Duration;
-            WindowTop = Properties.Settings.Default.Top;
-            WindowLeft = Properties.Settings.Default.Left;
-            WindowHeight = Properties.Settings.Default.Height;
-            WindowWidth = Properties.Settings.Default.Width;
             TopMost = Properties.Settings.Default.TopMost;
             FontSize = Properties.Settings.Default.FontSize;
             FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
             PlayBeep = Properties.Settings.Default.PlayBeep;
             PlayExclamation = Properties.Settings.Default.PlayExclamation;
+            FirstRun = Properties.Settings.Default.FirstRun;
         }
 
         /// <summary>
@@ -293,6 +229,8 @@ namespace Btl.Models
         public void Reload()
         {
             LoadSettings();
+            //  reset modified state to false
+            Modified = false;
         }
 
         /// <summary>

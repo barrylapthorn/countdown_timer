@@ -18,6 +18,9 @@ using System;
 
 namespace Btl.Models
 {
+    /// <summary>
+    /// Simple EventArgs class for the timer model.
+    /// </summary>
     public class TimerModelEventArgs : EventArgs
     {
         public enum Status

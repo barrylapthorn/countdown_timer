@@ -84,7 +84,7 @@ namespace Btl.ViewModels
         /// <summary>
         /// Executed when we want to switch to the about view
         /// </summary>
-        private void AboutExecute()
+        private static void AboutExecute()
         {
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToAboutView });
         }
@@ -362,7 +362,7 @@ namespace Btl.ViewModels
         /// Update the timer view model properties based on the time span passed in.
         /// </summary>
         /// <param name="t"></param>
-        private void UpdateTimer(TimeSpan t, TimerModelEventArgs e)
+        private void UpdateTimer(TimerModelEventArgs e)
         {
             UpdateTimerValues();
             UpdateTimerStatusColor(e);
@@ -432,7 +432,7 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         private void OnCompleted(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(_timer.Remaining, e);
+            UpdateTimer(e);
 
             CompletedCount++;
 
@@ -452,7 +452,7 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         private void OnTick(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(_timer.Remaining, e);
+            UpdateTimer(e);
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Normal, Value = PercentElapsed / 100.0 });
             Messenger.Default.Send(new SimpleMessage(SimpleMessage.MessageType.TimerTick, TimerValue));
@@ -465,7 +465,7 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         void OnStarted(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(_timer.Remaining, e);
+            UpdateTimer(e);
 
             if (_settings.PlayBeep)
             {
@@ -482,7 +482,7 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         private void OnStopped(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(_timer.Remaining, e);
+            UpdateTimer(e);
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.Paused });
         }
@@ -494,7 +494,8 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         private void OnReset(object sender, TimerModelEventArgs e)
         {
-            UpdateTimer(_timer.Remaining, e);
+            var timer = sender as TimerModel;
+            UpdateTimer(e);
 
             Messenger.Default.Send(new TaskbarItemMessage { State = TaskbarItemProgressState.None, Value = 0.0 });
             Messenger.Default.Send(new SimpleMessage(SimpleMessage.MessageType.TimerReset));

@@ -21,6 +21,10 @@ namespace Btl.Models
     internal interface ISettingsModel
     {
         /// <summary>
+        /// Returns whether this is the first ever run of the application.
+        /// </summary>
+        bool FirstRun { get; set; }
+        /// <summary>
         /// The font-family of the clock
         /// </summary>
         System.Windows.Media.FontFamily FontFamily { get; set; }
@@ -48,22 +52,6 @@ namespace Btl.Models
         /// the font size of the clock
         /// </summary>
         double FontSize { get; set; }
-        /// <summary>
-        /// The main window left position.
-        /// </summary>
-        double WindowLeft { get; set; }
-        /// <summary>
-        /// The main window height.
-        /// </summary>
-        double WindowHeight { get; set; }
-        /// <summary>
-        /// The main window top position.
-        /// </summary>
-        double WindowTop { get; set; }
-        /// <summary>
-        /// The Main window width
-        /// </summary>
-        double WindowWidth { get; set; }
         /// <summary>
         /// Reload the settings from the application properties if necessary.
         /// </summary>

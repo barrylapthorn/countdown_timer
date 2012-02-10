@@ -21,7 +21,7 @@ namespace Btl.Models
 {
     internal class TimerModel : ITimerModel
     {
-        #region Members
+        #region Fields
         /// <summary>
         /// The underlying timer
         /// </summary>

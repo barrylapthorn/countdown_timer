@@ -31,7 +31,13 @@ namespace Btl.ViewModels
     /// </summary>
     public class AboutViewModel : ViewModelBase
     {
+        #region Fields
+
         private readonly string _homepage = "http://www.lapthorn.net";
+
+        #endregion
+
+        #region Construction
 
         public AboutViewModel()
         {
@@ -39,8 +45,16 @@ namespace Btl.ViewModels
             HomePage = new RelayCommand(() => HomePageExecute());
         }
 
+        #endregion
+
+        #region Commands
+
         public ICommand OK { get; private set; }
         public ICommand HomePage { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         void OkExecute()
         {
@@ -64,6 +78,10 @@ namespace Btl.ViewModels
             }
         }
 
+        #endregion
+
+        #region Properties
+
         public string Version
         {
             get
@@ -71,5 +89,7 @@ namespace Btl.ViewModels
                 return string.Format("Version: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             }
         }
+
+        #endregion
     }
 }

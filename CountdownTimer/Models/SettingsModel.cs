@@ -42,7 +42,7 @@ namespace Btl.Models
         }
         #endregion
 
-        #region Private members
+        #region Fields
 
         private bool _FirstRun;
         private bool _PlayExclamation;
@@ -52,8 +52,7 @@ namespace Btl.Models
         private TimeSpan _duration;
 
         private double _fontSize = 10;
-
-
+        
         #endregion
 
         #region Properties

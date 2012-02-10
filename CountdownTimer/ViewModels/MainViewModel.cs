@@ -114,6 +114,8 @@ namespace Btl.ViewModels
         }
         #endregion
 
+        #region Methods
+
         /// <summary>
         /// Update the TaskbarItemInfo values with whatever is specified in the
         /// message.
@@ -131,6 +133,7 @@ namespace Btl.ViewModels
             if (message.HasValue)
                 ProgressValue = message.Value;
         }
+
         /// <summary>
         /// Consume the SimpleMessage class and perform actions based on its content.
         /// </summary>
@@ -195,6 +198,7 @@ namespace Btl.ViewModels
             _Settings.Reload();
             TopMost = _Settings.TopMost;
         }
+        #endregion
 
         #region Properties
         /// <summary>

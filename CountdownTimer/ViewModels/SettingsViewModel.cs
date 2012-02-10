@@ -31,13 +31,19 @@ namespace Btl.ViewModels
     /// </summary>
     public class SettingsViewModel : ViewModelBase
     {
-        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
+        #region Fields
 
+        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
+        
+        #endregion
+
+        #region Construction
         public SettingsViewModel()
         {
             OK = new RelayCommand(() => OkExecute(), CanOkExecute);
             Cancel = new RelayCommand(() => CancelExecute());
         }
+        #endregion
 
         #region Properties
         /// <summary>
@@ -173,6 +179,9 @@ namespace Btl.ViewModels
         public ICommand OK { get; private set; }
         public ICommand Cancel { get; private set; }
 
+        #endregion
+
+        #region Methods
         private void OkExecute()
         {
             _settings.Save();
@@ -190,7 +199,7 @@ namespace Btl.ViewModels
         {
             Messenger.Default.Send(new SimpleMessage { Type = SimpleMessage.MessageType.SwitchToTimerView });
         }
-
         #endregion
+
     }
 }

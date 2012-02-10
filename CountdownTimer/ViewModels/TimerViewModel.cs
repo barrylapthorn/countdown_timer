@@ -502,9 +502,5 @@ namespace Btl.ViewModels
         }
         #endregion
 
-        //  to do:  
-        //  settings to change timer value
-        //  
-
     }
 }

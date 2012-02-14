@@ -8,12 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountdownTimer", "Countdown
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Btl.Controls", "Btl\Controls\Btl.Controls.csproj", "{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}"
 EndProject
-Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "CountdownTimerInstaller", "CountdownTimerInstaller\CountdownTimerInstaller.isproj", "{F0603BC9-75EF-431E-922D-E019209D20CB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5} = {EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}
-		{93C3CA73-68DB-424F-8C4A-116151954B45} = {93C3CA73-68DB-424F-8C4A-116151954B45}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -83,35 +77,6 @@ Global
 		{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{EEFA1336-44F6-4766-BE16-A81AD1FCC2E5}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|Any CPU.Build.0 = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|Mixed Platforms.ActiveCfg = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|Mixed Platforms.Build.0 = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|x86.ActiveCfg = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.CD_ROM|x86.Build.0 = CD_ROM
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Debug|Any CPU.ActiveCfg = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Debug|Any CPU.Build.0 = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Debug|Mixed Platforms.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Debug|x86.ActiveCfg = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Debug|x86.Build.0 = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|Any CPU.ActiveCfg = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|Any CPU.Build.0 = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|Mixed Platforms.ActiveCfg = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|Mixed Platforms.Build.0 = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|x86.ActiveCfg = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.DVD-5|x86.Build.0 = DVD-5
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|Any CPU.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|Any CPU.Build.0 = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|Mixed Platforms.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|Mixed Platforms.Build.0 = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|x86.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.Release|x86.Build.0 = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|Any CPU.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|Any CPU.Build.0 = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|Mixed Platforms.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|Mixed Platforms.Build.0 = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|x86.ActiveCfg = SingleImage
-		{F0603BC9-75EF-431E-922D-E019209D20CB}.SingleImage|x86.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

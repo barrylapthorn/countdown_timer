@@ -4105,7 +4105,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{428641A4-653C-44CD-9AD3-9C1323711792}</td></row>
 		<row><td>ISUSSignature</td><td>{02AC2F77-CA50-4F03-910B-61BEB9759992}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewDependencies,viewAppFiles,viewProject,viewUpgradePaths,viewUpdateService,viewObjects,viewShortcuts,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewRelease,viewInstallScriptStd,viewRealSetupDesign,viewFileExtensions,viewEnvironmentVariables,viewVRoots</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewISToday,viewDependencies,viewAppFiles,viewProject,viewUpgradePaths,viewUpdateService,viewObjects,viewShortcuts,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewRelease,viewInstallScriptStd,viewRealSetupDesign,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSetupDesign</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4484,7 +4484,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]CountdownTimer.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{AC318597-8086-47AE-B5B2-459A8C514BB5}</td><td/></row>
 		<row><td>ProductName</td><td>CountdownTimer</td><td/></row>
-		<row><td>ProductVersion</td><td>1.05.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>1.06.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

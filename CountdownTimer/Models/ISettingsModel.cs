@@ -21,6 +21,10 @@ namespace Btl.Models
     internal interface ISettingsModel
     {
         /// <summary>
+        /// Get/set whether to highlight the clock using built-in colours.
+        /// </summary>
+        bool Colours { get; set; }
+        /// <summary>
         /// Returns whether this is the first ever run of the application.
         /// </summary>
         bool FirstRun { get; set; }

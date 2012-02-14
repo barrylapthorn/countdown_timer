@@ -34,7 +34,7 @@ namespace Btl.ViewModels
         private int _completedCount = 0;
         private FontFamily _fontFamily = null;
         private double _fontSize = 0d;
-        private Color _statusColor;
+        private Color _statusColor = Colors.Transparent;
         readonly ITimerModel _timer = TimerModelFactory.GetNewTimer();
         readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
         #endregion
@@ -374,6 +374,12 @@ namespace Btl.ViewModels
         /// <param name="e"></param>
         private void UpdateTimerStatusColor(TimerModelEventArgs e)
         {
+            if (_settings.Colours == false)
+            {
+                StatusColor = Colors.Transparent;
+                return;
+            }
+
             switch (e.State)
             {
                 case TimerModelEventArgs.Status.NotSpecified:

@@ -34,7 +34,7 @@ namespace Btl.ViewModels
         #region Fields
 
         readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
-        
+
         #endregion
 
         #region Construction
@@ -64,6 +64,22 @@ namespace Btl.ViewModels
             }
         }
 
+
+        public bool Colours
+        {
+            get
+            {
+                return _settings.Colours;
+            }
+
+            set
+            {
+                if (_settings.Colours == value)
+                    return;
+                _settings.Colours = value;
+                RaisePropertyChanged("Colours");
+            }
+        }
 
         /// <summary>
         /// Is this the first time the application has been run?

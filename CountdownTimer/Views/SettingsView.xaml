@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:Btl.Controls;assembly=Btl.Controls.MyControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="300"
+             d:DesignHeight="400"
              d:DesignWidth="600"
              mc:Ignorable="d">
     <UserControl.Resources />
@@ -42,18 +42,22 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="44*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="72*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="129*" />
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0"
                Grid.Column="0"
                Grid.ColumnSpan="2"
                HorizontalAlignment="Center"
-               Content="Settings" FontSize="20" FontWeight="Bold" />
+               Content="Settings"
+               FontSize="20"
+               FontWeight="Bold" />
         <CheckBox Name="TopMost"
                   Grid.Row="1"
                   Grid.Column="1"
@@ -66,12 +70,14 @@
                   IsChecked="{Binding TopMost}" />
         <Label Grid.Row="1" Content="Make countdown window top-most" />
         <Label Grid.Row="2" Content="Duration" />
-        <Label Grid.Row="3" Content="Starting sound" />
-        <Label Grid.Row="4" Content="Completion sound" />
-        <Label Grid.Row="5" Content="Font" />
+        <Label Grid.Row="3" Content="Show clock colours" />
+        <Label Grid.Row="4" Content="Starting sound" />
+        <Label Grid.Row="5" Content="Completion sound" />
+        <Label Grid.Row="6" Content="Font" />
+        <Label Grid.Row="7" Content="Font size" />
 
         <Button Name="Cancel"
-                Grid.Row="7"
+                Grid.Row="8"
                 Width="75"
                 Height="23"
                 HorizontalAlignment="Left"
@@ -79,7 +85,7 @@
                 Command="{Binding Cancel}"
                 Content="Cancel" />
         <Button Name="OK"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="1"
                 Width="75"
                 Height="23"
@@ -87,13 +93,19 @@
                 VerticalAlignment="Center"
                 Command="{Binding OK}"
                 Content="OK" />
+
         <CheckBox Grid.Row="3"
+                  Grid.Column="1"
+                  Margin="5,10,5,0"
+                  Content=""
+                  IsChecked="{Binding Colours}" />
+        <CheckBox Grid.Row="4"
                   Grid.Column="1"
                   Margin="5,10,5,0"
                   Content="System Beep"
                   IsChecked="{Binding PlayBeep}" />
 
-        <CheckBox Grid.Row="4"
+        <CheckBox Grid.Row="5"
                   Grid.Column="1"
                   Margin="5,10,4,0"
                   Content="System Exclamation"
@@ -108,7 +120,7 @@
 
 
 
-        <ComboBox Grid.Row="5"
+        <ComboBox Grid.Row="6"
                   Grid.Column="1"
                   VerticalAlignment="Top"
                   ItemTemplate="{DynamicResource FontTemplate}"
@@ -144,10 +156,7 @@
 
 
 
-        <Label Name="label1"
-               Grid.Row="6"
-               Content="Font size" />
-        <DockPanel Grid.Row="6" Grid.Column="1">
+        <DockPanel Grid.Row="7" Grid.Column="1">
             <Slider Name="MyFontSize"
                     MinWidth="120"
                     VerticalAlignment="Center"

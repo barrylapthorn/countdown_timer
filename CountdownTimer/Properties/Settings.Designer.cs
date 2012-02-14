@@ -118,5 +118,17 @@ namespace Btl.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Colours {
+            get {
+                return ((bool)(this["Colours"]));
+            }
+            set {
+                this["Colours"] = value;
+            }
+        }
     }
 }

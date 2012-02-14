@@ -48,16 +48,32 @@ namespace Btl.Models
         private bool _PlayExclamation;
         private bool _PlayBeep; 
         private bool _topMost;
+        private bool _colours;
 
         private TimeSpan _duration;
 
         private double _fontSize = 10;
+        private FontFamily _FontFamily;
         
         #endregion
 
         #region Properties
 
-        private FontFamily _FontFamily;
+
+        public bool Colours
+        {
+            get
+            {
+                return _colours;
+            }
+            set
+            {
+                if (_colours == value)
+                    return;
+                _colours = value;
+                Modified = true;
+            }
+        }
 
         public FontFamily FontFamily
         {
@@ -199,6 +215,7 @@ namespace Btl.Models
             Properties.Settings.Default.PlayExclamation = PlayExclamation;
             Properties.Settings.Default.PlayBeep = PlayBeep;
             Properties.Settings.Default.FirstRun = FirstRun;
+            Properties.Settings.Default.Colours = Colours;
 
             //  persist the settings.
             Properties.Settings.Default.Save();
@@ -220,6 +237,7 @@ namespace Btl.Models
             PlayBeep = Properties.Settings.Default.PlayBeep;
             PlayExclamation = Properties.Settings.Default.PlayExclamation;
             FirstRun = Properties.Settings.Default.FirstRun;
+            Colours = Properties.Settings.Default.Colours;
         }
 
         /// <summary>

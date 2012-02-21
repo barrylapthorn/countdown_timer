@@ -15,45 +15,19 @@
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
 
-namespace Btl.Models
+using Btl.Models;
+
+
+namespace Btl.Builders
 {
     /// <summary>
-    /// A simple message class that we use to pass messages around the application
-    /// via the Messenger singleton, but keep the parts sufficiently decoupled
-    /// for the MVVM style of work.
+    /// A simple class with a factory method to return a settings model.
     /// </summary>
-    public class SimpleMessage
+    class SettingsModelBuilder
     {
-        public SimpleMessage() : this(MessageType.SwitchToTimerView)
+        public static ISettingsModel GetNewSettings()
         {
+            return new SettingsModel();
         }
-
-        public SimpleMessage(MessageType type)
-            : this(type, string.Empty)
-        {
-        }
-
-        public SimpleMessage(MessageType type, string message)
-        {
-            Type = type;
-            Message = message;
-        }
-
-        public enum MessageType
-        {
-            SwitchToTimerView,
-            SwitchToSettingsView,
-            SwitchToAboutView,
-            SettingsChanged,
-            TimerStop,
-            TimerStart,
-            TimerTick,
-            TimerReset
-        }
-
-        public MessageType Type { get; set; }
-
-        public string Message { get; set; }
-
     }
 }

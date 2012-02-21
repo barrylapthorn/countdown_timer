@@ -17,10 +17,12 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Shell;
+using Btl.Builders;
 using Btl.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Btl.Messaging;
 
 namespace Btl.ViewModels
 {
@@ -36,7 +38,9 @@ namespace Btl.ViewModels
         /// <summary>
         /// The application settings.
         /// </summary>
-        private readonly ISettingsModel _Settings = SettingsModelFactory.GetNewSettings();
+        private readonly ISettingsModel _Settings = SettingsModelBuilder.GetNewSettings();
+
+        private readonly ViewModelLocator _locator = new ViewModelLocator();
 
         /// <summary>
         /// The original window title since we swap it out with the countdown
@@ -54,9 +58,7 @@ namespace Btl.ViewModels
 
         #region View Models presented in the Content Control
         private ViewModelBase _currentViewModel;
-        private readonly static TimerViewModel _timerViewModel;
-        private readonly static SettingsViewModel _settingsViewModel;
-        private readonly static AboutViewModel _aboutViewModel;
+
         #endregion
 
         #region Commands
@@ -74,17 +76,7 @@ namespace Btl.ViewModels
         /// </summary>
         static MainViewModel()
         {
-            try
-            {
-                _timerViewModel = new TimerViewModel();
-                _settingsViewModel = new SettingsViewModel();
-                _aboutViewModel = new AboutViewModel();
-            }
-            catch (System.Exception exception)
-            {
-                MessageBox.Show(string.Format("An exception was thrown trying to construct the ViewModels:  {0}", exception.Message),
-                    "Oh Dear!", MessageBoxButton.OK, MessageBoxImage.Stop);
-            }
+
         }
 
 
@@ -94,7 +86,7 @@ namespace Btl.ViewModels
         public MainViewModel()
         {
             //  Set the start-up view model.
-            CurrentViewModel = _timerViewModel;
+            CurrentViewModel = _locator.Timer;
 
             //  Create the commands
             TimerViewCommand = new RelayCommand(() => ExecuteViewTimerCommand());
@@ -170,17 +162,17 @@ namespace Btl.ViewModels
 
         private void ExecuteViewTimerCommand()
         {
-            CurrentViewModel = _timerViewModel;
+            CurrentViewModel = _locator.Timer;
         }
 
         private void ExecuteViewSettingsCommand()
         {
-            CurrentViewModel = _settingsViewModel;
+            CurrentViewModel = _locator.Settings;
         }
 
         private void ExecuteViewAboutCommand()
         {
-            CurrentViewModel = _aboutViewModel;
+            CurrentViewModel = _locator.About;
         }
 
         private static void ExecutePlayCommand()

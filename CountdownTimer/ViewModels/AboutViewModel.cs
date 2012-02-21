@@ -14,10 +14,10 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using Btl.Models;
+using Btl.Messaging;
+using Btl.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -86,7 +86,7 @@ namespace Btl.ViewModels
         {
             get
             {
-                return string.Format("Version: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                return string.Format("Version: {0}", ApplicationVersionService.Version);
             }
         }
 

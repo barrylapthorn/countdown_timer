@@ -72,13 +72,14 @@
     </ApplicationDefinition>
     <Compile Include="Models\ISettingsModel.cs" />
     <Compile Include="Models\ITimerModel.cs" />
-    <Compile Include="Models\SettingsModelFactory.cs" />
-    <Compile Include="Models\SimpleMessage.cs" />
+    <Compile Include="Services\ApplicationVersionService.cs" />
+    <Compile Include="Services\SettingsModelBuilder.cs" />
+    <Compile Include="Messaging\SimpleMessage.cs" />
     <Compile Include="Models\SettingsModel.cs" />
-    <Compile Include="Models\TaskbarItemMessage.cs" />
+    <Compile Include="Messaging\TaskbarItemMessage.cs" />
     <Compile Include="Models\TimerModel.cs" />
     <Compile Include="Models\TimerModelEventArgs.cs" />
-    <Compile Include="Models\TimerModelFactory.cs" />
+    <Compile Include="Services\TimerModelBuilder.cs" />
     <Compile Include="Models\TimerState.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

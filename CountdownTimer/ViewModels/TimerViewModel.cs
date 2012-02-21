@@ -20,6 +20,8 @@ using System.Media;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shell;
+using Btl.Builders;
+using Btl.Messaging;
 using Btl.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -35,8 +37,8 @@ namespace Btl.ViewModels
         private FontFamily _fontFamily = null;
         private double _fontSize = 0d;
         private Color _statusColor = Colors.Transparent;
-        readonly ITimerModel _timer = TimerModelFactory.GetNewTimer();
-        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
+        readonly ITimerModel _timer = TimerModelBuilder.GetNewTimer();
+        readonly ISettingsModel _settings = SettingsModelBuilder.GetNewSettings();
         #endregion
 
         #region Constructors

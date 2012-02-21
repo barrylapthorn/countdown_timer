@@ -18,10 +18,12 @@
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
+using Btl.Builders;
 using Btl.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Btl.Messaging;
 
 
 namespace Btl.ViewModels
@@ -33,7 +35,7 @@ namespace Btl.ViewModels
     {
         #region Fields
 
-        readonly ISettingsModel _settings = SettingsModelFactory.GetNewSettings();
+        readonly ISettingsModel _settings = SettingsModelBuilder.GetNewSettings();
 
         #endregion
 

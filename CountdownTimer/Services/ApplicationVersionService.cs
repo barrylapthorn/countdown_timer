@@ -14,17 +14,20 @@
 //
 // You are free to fork this via github:  https://github.com/barrylapthorn/countdown_timer
 
-namespace Btl.Models
+
+using System.Reflection;
+
+
+namespace Btl.Services
 {
-    public class TimerModelFactory
+    class ApplicationVersionService
     {
-        /// <summary>
-        /// Get a new instance of a TimerModel
-        /// </summary>
-        /// <returns></returns>
-        public static ITimerModel GetNewTimer()
+        public static string Version
         {
-            return new TimerModel();
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
         }
     }
 }
